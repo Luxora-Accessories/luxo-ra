@@ -3,13 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>LUNOVRA GAMES | منصة الألعاب الكلاسيكية</title>
+    <title>LUNOVRA QUIZ | منصة الاختبارات والتحديات التفاعلية</title>
     <meta name="monetag" content="3f4088c86eb10f970c25df2fc645fcca">
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Cairo:wght@300;400;700&display=swap" rel="stylesheet">
     
     <style>
         :root {
             --gold: #c5a059;
+            --gold-bright: #ffdfa0;
             --dark: #0a0a0a;
             --dark-card: #141414;
             --white: #ffffff;
@@ -27,6 +28,7 @@
             color: var(--white); 
             overflow-x: hidden;
             line-height: 1.5;
+            min-height: 100vh;
         }
 
         #loader {
@@ -44,89 +46,107 @@
         header { 
             position: sticky; top: 0; z-index: 2000;
             background: rgba(10, 10, 10, 0.95); padding: 15px 5%; 
-            display: flex; flex-direction: column; align-items: center; gap: 15px;
+            display: flex; justify-content: center; align-items: center;
             border-bottom: 1px solid rgba(197, 160, 89, 0.3);
             backdrop-filter: blur(10px);
         }
         
         .logo-text { 
-            font-family: 'Cinzel', serif; font-size: 26px; color: var(--gold); 
+            font-family: 'Cinzel', serif; font-size: 24px; color: var(--gold); 
             letter-spacing: 4px; text-align: center; user-select: none; 
         }
 
         .hero-banner {
-            text-align: center; padding: 30px 15px 10px;
+            text-align: center; padding: 30px 15px 15px;
             background: linear-gradient(180deg, rgba(197, 160, 89, 0.1) 0%, rgba(10,10,10,0) 100%);
         }
         .hero-banner h1 { font-family: 'Cinzel', serif; color: var(--gold); font-size: 1.8rem; margin-bottom: 5px; }
-        .hero-banner p { color: #aaa; font-size: 0.9rem; }
+        .hero-banner p { color: #aaa; font-size: 0.95rem; }
 
         main { 
-            display: grid; grid-template-columns: repeat(2, 1fr); 
-            gap: 15px; padding: 20px; max-width: 1200px; margin: 0 auto;
+            display: grid; grid-template-columns: repeat(1, 1fr); 
+            gap: 20px; padding: 20px; max-width: 800px; margin: 0 auto;
         }
-        @media (min-width: 768px) { main { grid-template-columns: repeat(3, 1fr); gap: 20px; } }
-        @media (min-width: 1024px) { main { grid-template-columns: repeat(4, 1fr); gap: 25px; } }
+        @media (min-width: 768px) { main { grid-template-columns: repeat(2, 1fr); } }
 
-        .game-card { 
-            background: var(--dark-card); border: 1px solid #222; padding: 12px; 
-            text-align: center; transition: var(--transition); border-radius: 12px;
-            cursor: pointer; overflow: hidden;
+        .quiz-card { 
+            background: var(--dark-card); border: 1px solid #222; padding: 20px; 
+            border-radius: 15px; transition: var(--transition); text-align: center;
             display: flex; flex-direction: column; justify-content: space-between;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
         }
-        .game-card:hover {
-            transform: translateY(-8px);
+        .quiz-card:hover {
+            transform: translateY(-5px);
             border-color: var(--gold);
-            box-shadow: 0 10px 20px rgba(197, 160, 89, 0.2);
+            box-shadow: 0 10px 25px rgba(197, 160, 89, 0.2);
         }
-        
-        .img-container { width: 100%; height: 140px; overflow: hidden; border-radius: 8px; margin-bottom: 10px; }
-        @media (min-width: 768px) { .img-container { height: 180px; } }
-        
-        .game-card img { 
-            width: 100%; height: 100%; object-fit: cover; 
-            transition: transform 0.5s ease;
-        }
-        .game-card:hover img { transform: scale(1.08); }
 
-        .game-card h3 { font-size: 0.95rem; font-weight: 700; color: #fff; margin-bottom: 5px; }
-        .game-card .category { color: var(--gold); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; }
+        .quiz-icon { font-size: 45px; margin-bottom: 10px; }
+        .quiz-card h3 { color: var(--white); font-size: 1.2rem; margin-bottom: 10px; }
+        .quiz-card p { color: #aaa; font-size: 0.85rem; margin-bottom: 20px; line-height: 1.6; }
 
-        .play-btn {
+        .btn-gold {
             background: transparent; color: var(--gold); border: 1px solid var(--gold);
-            padding: 8px 12px; border-radius: 20px; font-size: 0.8rem; font-weight: bold;
-            margin-top: 10px; transition: var(--transition); width: 100%;
+            padding: 12px 20px; border-radius: 25px; font-weight: bold; cursor: pointer;
+            transition: var(--transition); width: 100%; font-size: 0.95rem;
         }
-        .game-card:hover .play-btn { background: var(--gold); color: #000; }
-
-        /* Game Modal Frame */
-        .modal { 
-            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
-            background: rgba(0,0,0,0.92); z-index: 5000; justify-content: center; align-items: center; 
-            backdrop-filter: blur(8px); padding: 10px;
-        }
-        
-        .modal-content { 
-            background: var(--dark-card); width: 100%; max-width: 600px; height: 85vh; 
-            border-radius: 12px; overflow: hidden; position: relative;
-            display: flex; flex-direction: column; border: 1px solid var(--gold);
+        .btn-gold:hover, .quiz-card:hover .btn-gold {
+            background: var(--gold); color: #000; box-shadow: 0 0 15px rgba(197, 160, 89, 0.4);
         }
 
-        .modal-header {
-            padding: 12px 20px; background: #080808; display: flex; justify-content: space-between; align-items: center;
-            border-bottom: 1px solid #222;
+        /* Quiz Player Interface */
+        .quiz-modal {
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.95); z-index: 5000; justify-content: center; align-items: center;
+            padding: 15px; backdrop-filter: blur(8px);
         }
-        .modal-header h2 { color: var(--gold); font-size: 1.1rem; }
 
-        .close-btn {
-            width: 30px; height: 30px; border-radius: 50%; border: 1px solid var(--gold);
-            color: var(--gold); display: flex; align-items: center; justify-content: center;
-            cursor: pointer; font-weight: bold;
+        .quiz-box {
+            background: var(--dark-card); border: 1px solid var(--gold);
+            width: 100%; max-width: 600px; border-radius: 15px; padding: 25px;
+            position: relative; box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+            animation: fadeIn 0.4s ease;
         }
-        .close-btn:hover { background: var(--gold); color: #000; }
+        @keyframes fadeIn { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
 
-        .game-container { flex: 1; width: 100%; height: 100%; background: #000; display: flex; justify-content: center; align-items: center; position: relative; overflow: hidden; }
-        .game-container iframe { width: 100%; height: 100%; border: none; }
+        .quiz-header {
+            display: flex; justify-content: space-between; align-items: center;
+            margin-bottom: 20px; border-bottom: 1px solid #222; padding-bottom: 10px;
+        }
+        .quiz-title { color: var(--gold); font-size: 1rem; font-weight: bold; }
+        .close-quiz { cursor: pointer; color: #888; font-size: 20px; font-weight: bold; }
+        .close-quiz:hover { color: #fff; }
+
+        .progress-bar { width: 100%; height: 6px; background: #222; border-radius: 3px; margin-bottom: 20px; overflow: hidden; }
+        .progress-fill { height: 100%; background: var(--gold); width: 0%; transition: width 0.3s ease; }
+
+        .question-text { font-size: 1.15rem; font-weight: bold; margin-bottom: 20px; color: #fff; text-align: center; }
+
+        .options-list { display: flex; flex-direction: column; gap: 12px; }
+        .option-btn {
+            background: #1a1a1a; border: 1px solid #333; color: #ddd;
+            padding: 14px 18px; border-radius: 10px; text-align: right;
+            cursor: pointer; transition: var(--transition); font-size: 0.95rem;
+        }
+        .option-btn:hover { border-color: var(--gold); background: #222; color: #fff; }
+
+        /* Result Box */
+        .result-box { text-align: center; padding: 10px 0; }
+        .result-title { font-size: 1.6rem; color: var(--gold); margin-bottom: 10px; font-weight: bold; }
+        .result-desc { color: #ccc; font-size: 1rem; line-height: 1.7; margin-bottom: 25px; }
+
+        .share-btns { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; }
+        .btn-share {
+            padding: 12px 20px; border-radius: 25px; font-weight: bold; cursor: pointer;
+            border: none; display: flex; align-items: center; gap: 8px; font-size: 0.9rem;
+            text-decoration: none; transition: var(--transition);
+        }
+        .btn-wa { background: #25D366; color: #fff; }
+        .btn-wa:hover { background: #1da851; }
+        .btn-copy { background: #333; color: #fff; border: 1px solid var(--gold); }
+        .btn-copy:hover { background: var(--gold); color: #000; }
+
+        #toast { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); background: var(--gold); color: #000; padding: 12px 25px; border-radius: 30px; font-weight: bold; opacity: 0; transition: 0.4s; z-index: 10001; pointer-events: none; }
     </style>
 </head>
 <body>
@@ -134,96 +154,239 @@
     <div id="loader"><div class="loader-logo">LUNOVRA</div></div>
 
     <header>
-        <div class="logo-text">LUNOVRA GAMES</div>
+        <div class="logo-text">LUNOVRA QUIZ</div>
     </header>
 
     <div class="hero-banner">
-        <h1>Retro & Arcade Games</h1>
-        <p>اختر لعبتك المفضل و أثبت مهاراتك</p>
+        <h1>اختبر نفسك وتحدى أصدقاءك</h1>
+        <p>اختر أحد الاختبارات التفاعلية التالية واكتشف النتيجة!</p>
     </div>
 
-    <main id="games-grid"></main>
-
-    <div id="game-modal" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2 id="modal-title">اسم اللعبة</h2>
-                <div class="close-btn" onclick="closeGame()">✕</div>
+    <main>
+        <!-- Quiz 1 -->
+        <div class="quiz-card">
+            <div>
+                <div class="quiz-icon">⚔️</div>
+                <h3>اختبار الشخصية: أي نوع من المحاربين أنت؟</h3>
+                <p>إكتشف نمط شخصيتك القتالية والقيادية من خلال إجابتك على أسئلة مواقف سريعة وحاسمة!</p>
             </div>
-            <div class="game-container" id="game-box"></div>
+            <button class="btn-gold" onclick="startQuiz('personality')">إبدأ الاختبار الآن 🚀</button>
+        </div>
+
+        <!-- Quiz 2 -->
+        <div class="quiz-card">
+            <div>
+                <div class="quiz-icon">🧠</div>
+                <h3>تحدي الذكاء والمعلومات العامة</h3>
+                <p>اختبار معلومات عامة سريع وسلس لتحدي قدراتك وعقلك. هل يمكنك إحراز النتيجة الكاملة؟</p>
+            </div>
+            <button class="btn-gold" onclick="startQuiz('trivia')">إبدأ التحدي الآن 🏆</button>
+        </div>
+    </main>
+
+    <!-- Quiz Modal -->
+    <div id="quiz-modal" class="quiz-modal">
+        <div class="quiz-box">
+            <div class="quiz-header">
+                <span class="quiz-title" id="q-modal-title">الاختبار</span>
+                <span class="close-quiz" onclick="closeQuiz()">✕</span>
+            </div>
+            
+            <div id="quiz-content">
+                <div class="progress-bar"><div class="progress-fill" id="progress"></div></div>
+                <div class="question-text" id="q-text">عنوان السؤال ينزل هنا؟</div>
+                <div class="options-list" id="q-options"></div>
+            </div>
+
+            <div id="result-content" class="result-box" style="display: none;">
+                <div class="result-title" id="res-title">النتيجة الممتازة</div>
+                <div class="result-desc" id="res-desc">تفاصيل النتيجة...</div>
+                <div class="share-btns">
+                    <button class="btn-share btn-wa" onclick="shareWhatsApp()">مشاركة عبر WhatsApp 📲</button>
+                    <button class="btn-share btn-copy" onclick="copyLink()">نسخ رابط التحدي 🔗</button>
+                </div>
+            </div>
         </div>
     </div>
 
+    <div id="toast">تم نسخ الرابط بنجاح!</div>
+
     <script>
-        const games = [
-            {
-                id: "snake",
-                title: "Snake Classic",
-                category: "Retro / ثعبان",
-                img: "https://images.unsplash.com/photo-1628155930542-3c7a64e2c833?w=500&q=80"
-            },
-            {
-                id: "2048",
-                title: "2048 Puzzle",
-                category: "Puzzle / ذكاء",
-                img: "https://images.unsplash.com/photo-1611996575749-79a3a250f948?w=500&q=80"
-            },
-            {
-                id: "tictactoe",
-                title: "Tic Tac Toe (X O)",
-                category: "Strategy / تحدي",
-                img: "https://images.unsplash.com/photo-1668906093328-99601a1aa584?w=500&q=80"
-            },
-            {
-                id: "flappy",
-                title: "Flappy Bird",
-                category: "Arcade / الطائر",
-                img: "https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=500&q=80"
+        // Data for Personality Quiz
+        const personalityQuiz = {
+            title: "اختبار المحارب الأسطوري",
+            questions: [
+                {
+                    q: "عند مواجهة عقبة أو مشكلة كبيرة في حياتك، كيف تتصرف؟",
+                    options: [
+                        { text: "أندفع فوراً وبكل قوتي لحلها بدون تردد.", type: "A" },
+                        { text: "أجلس وأحلل المشكلة بهدوء وأضع خطة محكمة.", type: "B" },
+                        { text: "أبحث عن طرق مبتكرة وغير تقليدية لتجاوزها.", type: "C" }
+                    ]
+                },
+                {
+                    q: "ما هي السمة الأهم التي تميزك بين أصدقائك؟",
+                    options: [
+                        { text: "الشجاعة والجرأة في اتخاذ القرارات.", type: "A" },
+                        { text: "الحكمة والرزانة وتقديم النصائح.", type: "B" },
+                        { text: "السرعة والذكاء والقدرة على التأقلم.", type: "C" }
+                    ]
+                },
+                {
+                    q: "إذا خيروك بين هذه الأسلحة والأدوات، ماذا تختار؟",
+                    options: [
+                        { text: "سيف ثقيل وقوي يحسم المعارك.", type: "A" },
+                        { text: "كتاب أسرار واستراتيجيات نادرة.", type: "B" },
+                        { text: "قوس وسهام سريعة ودقيقة.", type: "C" }
+                    ]
+                }
+            ],
+            results: {
+                A: { title: "أنت: المحارب الفارس ⚔️", desc: "تمتلك شجاعة نادرة وجرأة عالية! تتقدم دائماً في الصفوف الأولى ولا تخاف التحديات. قوتك تكمن في إرادتك الصلبة." },
+                B: { title: "أنت: الحكيم الاستراتيجي 📜", desc: "عقلك هو سلاحك الأقوى! تعتمد على التفكير والتحليل قبل أي خطوة، وتصل إلى أهدافك بأقل الخسائر وبأعلى ذكاء." },
+                C: { title: "أنت: النينجا السريع 🥷", desc: "مرن، سريع البديهة، وتفكر خارج الصندوق! تستطيع التكيف مع أي ظرف وتحويل المواقف الصعبة لصالحك ببراعة." }
             }
-        ];
+        };
 
-        function renderGames() {
-            const grid = document.getElementById('games-grid');
-            grid.innerHTML = games.map(g => `
-                <div class="game-card" onclick="openGame('${g.id}', '${g.title}')">
-                    <div class="img-container">
-                        <img src="${g.img}" alt="${g.title}" loading="lazy">
-                    </div>
-                    <div>
-                        <h3>${g.title}</h3>
-                        <div class="category">${g.category}</div>
-                    </div>
-                    <button class="play-btn">إبدأ اللعب 🎮</button>
-                </div>
-            `).join('');
-        }
+        // Data for Trivia Quiz
+        const triviaQuiz = {
+            title: "تحدي الذكاء والمعلومات",
+            questions: [
+                {
+                    q: "ما هو أطول نهر في العالم؟",
+                    options: [
+                        { text: "نهر النيل", correct: true },
+                        { text: "نهر الأمازون", correct: false },
+                        { text: "نهر الميسيسيبي", correct: false }
+                    ]
+                },
+                {
+                    q: "ما هو الكوكب الملقب بالكوكب الأحمر؟",
+                    options: [
+                        { text: "كوكب الزهرة", correct: false },
+                        { text: "كوكب المريخ", correct: true },
+                        { text: "كوكب المشتري", correct: false }
+                    ]
+                },
+                {
+                    q: "كم عدد أضلاع المثلث؟",
+                    options: [
+                        { text: "3 أضلاع", correct: true },
+                        { text: "4 أضلاع", correct: false },
+                        { text: "5 أضلاع", correct: false }
+                    ]
+                }
+            ]
+        };
 
-        function openGame(id, title) {
-            document.getElementById('modal-title').innerText = title;
-            const box = document.getElementById('game-box');
-            
-            if (id === 'snake') {
-                box.innerHTML = `<iframe src="https://playsnake.org/" style="width:100%; height:100%; border:none;"></iframe>`;
-            } else if (id === '2048') {
-                box.innerHTML = `<iframe src="https://play2048.co/" style="width:100%; height:100%; border:none;"></iframe>`;
-            } else if (id === 'tictactoe') {
-                box.innerHTML = `<iframe src="https://playtictactoe.org/" style="width:100%; height:100%; border:none;"></iframe>`;
-            } else if (id === 'flappy') {
-                box.innerHTML = `<iframe src="https://flappybird.io/" style="width:100%; height:100%; border:none;"></iframe>`;
-            }
+        let currentQuizType = "";
+        let currentStep = 0;
+        let scoreP = { A: 0, B: 0, C: 0 };
+        let scoreT = 0;
+        let lastResultText = "";
 
-            document.getElementById('game-modal').style.display = 'flex';
+        function startQuiz(type) {
+            currentQuizType = type;
+            currentStep = 0;
+            scoreP = { A: 0, B: 0, C: 0 };
+            scoreT = 0;
+
+            document.getElementById('quiz-content').style.display = 'block';
+            document.getElementById('result-content').style.display = 'none';
+            document.getElementById('quiz-modal').style.display = 'flex';
             document.body.style.overflow = 'hidden';
+
+            if (type === 'personality') {
+                document.getElementById('q-modal-title').innerText = personalityQuiz.title;
+            } else {
+                document.getElementById('q-modal-title').innerText = triviaQuiz.title;
+            }
+            showQuestion();
         }
 
-        function closeGame() {
-            document.getElementById('game-modal').style.display = 'none';
-            document.getElementById('game-box').innerHTML = '';
+        function showQuestion() {
+            const data = (currentQuizType === 'personality') ? personalityQuiz : triviaQuiz;
+            const qData = data.questions[currentStep];
+
+            // Update progress
+            const progressPercent = ((currentStep) / data.questions.length) * 100;
+            document.getElementById('progress').style.width = progressPercent + '%';
+
+            document.getElementById('q-text').innerText = qData.q;
+            
+            const optionsBox = document.getElementById('q-options');
+            optionsBox.innerHTML = '';
+
+            qData.options.forEach(opt => {
+                const btn = document.createElement('button');
+                btn.className = 'option-btn';
+                btn.innerText = opt.text;
+                btn.onclick = () => handleAnswer(opt);
+                optionsBox.appendChild(btn);
+            });
+        }
+
+        function handleAnswer(opt) {
+            if (currentQuizType === 'personality') {
+                scoreP[opt.type]++;
+            } else {
+                if (opt.correct) scoreT++;
+            }
+
+            currentStep++;
+            const data = (currentQuizType === 'personality') ? personalityQuiz : triviaQuiz;
+
+            if (currentStep < data.questions.length) {
+                showQuestion();
+            } else {
+                showResult();
+            }
+        }
+
+        function showResult() {
+            document.getElementById('quiz-content').style.display = 'none';
+            document.getElementById('result-content').style.display = 'block';
+            document.getElementById('progress').style.width = '100%';
+
+            if (currentQuizType === 'personality') {
+                let maxType = 'A';
+                if (scoreP.B > scoreP[maxType]) maxType = 'B';
+                if (scoreP.C > scoreP[maxType]) maxType = 'C';
+
+                const res = personalityQuiz.results[maxType];
+                document.getElementById('res-title').innerText = res.title;
+                document.getElementById('res-desc').innerText = res.desc;
+                lastResultText = `جربت اختبار الشخصية وكانت النتيجة: (${res.title}). خوض التحدي واكتشف نمط شخصيتك الآن!`;
+            } else {
+                document.getElementById('res-title').innerText = `حصلت على: ${scoreT} من 3 🏆`;
+                if (scoreT === 3) {
+                    document.getElementById('res-desc').innerText = "عبقري! إجاباتك كاملة وصحيحة 100%. أثبت تفوقك العقلي وثقافتك العامة.";
+                } else {
+                    document.getElementById('res-desc').innerText = "محاولة جيدة! يمكنك إعادة التحدي مجدداً وتحقيق النتيجة الكاملة.";
+                }
+                lastResultText = `حققت ${scoreT} من 3 في تحدي الذكاء المعرفي! هل تستطيع التغلب علي؟ جرب الآن!`;
+            }
+        }
+
+        function closeQuiz() {
+            document.getElementById('quiz-modal').style.display = 'none';
             document.body.style.overflow = 'auto';
         }
 
+        function shareWhatsApp() {
+            const url = window.location.href;
+            const text = `${lastResultText}\n\nالرابط: ${url}`;
+            window.open(`https://wa.me/?text=${encodeURIComponent(text)}`);
+        }
+
+        function copyLink() {
+            navigator.clipboard.writeText(window.location.href);
+            const t = document.getElementById('toast');
+            t.style.opacity = '1';
+            setTimeout(() => t.style.opacity = '0', 2000);
+        }
+
         window.onload = () => {
-            renderGames();
             setTimeout(() => {
                 document.getElementById('loader').style.opacity = '0';
                 setTimeout(() => document.getElementById('loader').style.display = 'none', 800);
