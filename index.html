@@ -10,10 +10,8 @@
     <style>
         :root {
             --gold: #c5a059;
-            --gold-bright: #ffdfa0;
             --dark: #0a0a0a;
             --dark-card: #141414;
-            --cream: #fdfdfd;
             --white: #ffffff;
             --transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
         }
@@ -55,17 +53,6 @@
             font-family: 'Cinzel', serif; font-size: 26px; color: var(--gold); 
             letter-spacing: 4px; text-align: center; user-select: none; 
         }
-        
-        .search-box {
-            width: 100%; max-width: 500px;
-            position: relative;
-        }
-        .search-box input {
-            width: 100%; padding: 10px 20px;
-            border-radius: 25px; border: 1px solid var(--gold);
-            background: rgba(255,255,255,0.05); color: white;
-            outline: none; font-size: 14px; text-align: center;
-        }
 
         .hero-banner {
             text-align: center; padding: 30px 15px 10px;
@@ -76,13 +63,13 @@
 
         main { 
             display: grid; grid-template-columns: repeat(2, 1fr); 
-            gap: 15px; padding: 20px; max-width: 1300px; margin: 0 auto;
+            gap: 15px; padding: 20px; max-width: 1200px; margin: 0 auto;
         }
         @media (min-width: 768px) { main { grid-template-columns: repeat(3, 1fr); gap: 20px; } }
         @media (min-width: 1024px) { main { grid-template-columns: repeat(4, 1fr); gap: 25px; } }
 
         .game-card { 
-            background: var(--dark-card); border: 1px solid #222; padding: 10px; 
+            background: var(--dark-card); border: 1px solid #222; padding: 12px; 
             text-align: center; transition: var(--transition); border-radius: 12px;
             cursor: pointer; overflow: hidden;
             display: flex; flex-direction: column; justify-content: space-between;
@@ -107,8 +94,8 @@
 
         .play-btn {
             background: transparent; color: var(--gold); border: 1px solid var(--gold);
-            padding: 6px 12px; border-radius: 20px; font-size: 0.8rem; font-weight: bold;
-            margin-top: 8px; transition: var(--transition);
+            padding: 8px 12px; border-radius: 20px; font-size: 0.8rem; font-weight: bold;
+            margin-top: 10px; transition: var(--transition); width: 100%;
         }
         .game-card:hover .play-btn { background: var(--gold); color: #000; }
 
@@ -120,13 +107,13 @@
         }
         
         .modal-content { 
-            background: var(--dark-card); width: 100%; max-width: 900px; height: 90vh; 
+            background: var(--dark-card); width: 100%; max-width: 600px; height: 85vh; 
             border-radius: 12px; overflow: hidden; position: relative;
             display: flex; flex-direction: column; border: 1px solid var(--gold);
         }
 
         .modal-header {
-            padding: 10px 20px; background: #080808; display: flex; justify-content: space-between; align-items: center;
+            padding: 12px 20px; background: #080808; display: flex; justify-content: space-between; align-items: center;
             border-bottom: 1px solid #222;
         }
         .modal-header h2 { color: var(--gold); font-size: 1.1rem; }
@@ -138,8 +125,8 @@
         }
         .close-btn:hover { background: var(--gold); color: #000; }
 
-        .iframe-container { flex: 1; width: 100%; height: 100%; background: #000; }
-        .iframe-container iframe { width: 100%; height: 100%; border: none; }
+        .game-container { flex: 1; width: 100%; height: 100%; background: #000; display: flex; justify-content: center; align-items: center; position: relative; overflow: hidden; }
+        .game-container iframe { width: 100%; height: 100%; border: none; }
     </style>
 </head>
 <body>
@@ -148,14 +135,11 @@
 
     <header>
         <div class="logo-text">LUNOVRA GAMES</div>
-        <div class="search-box">
-            <input type="text" id="search-input" placeholder="ابحث عن لعبه..." onkeyup="filterGames()">
-        </div>
     </header>
 
     <div class="hero-banner">
         <h1>Retro & Arcade Games</h1>
-        <p>العب أكثر الألعاب الكلاسيكية متعة مباشرة على المتصفح</p>
+        <p>اختر لعبتك المفضل و أثبت مهاراتك</p>
     </div>
 
     <main id="games-grid"></main>
@@ -166,62 +150,42 @@
                 <h2 id="modal-title">اسم اللعبة</h2>
                 <div class="close-btn" onclick="closeGame()">✕</div>
             </div>
-            <div class="iframe-container">
-                <iframe id="game-frame" src="" allowfullscreen></iframe>
-            </div>
+            <div class="game-container" id="game-box"></div>
         </div>
     </div>
 
     <script>
         const games = [
             {
-                id: 1,
-                title: "Pac-Man Classic",
-                category: "Arcade / كلاسيك",
-                img: "https://images.unsplash.com/photo-1579373903781-fd5c0c30c4cd?w=500&q=80",
-                url: "https://pacman.com/en/"
+                id: "snake",
+                title: "Snake Classic",
+                category: "Retro / ثعبان",
+                img: "https://images.unsplash.com/photo-1628155930542-3c7a64e2c833?w=500&q=80"
             },
             {
-                id: 2,
+                id: "2048",
                 title: "2048 Puzzle",
                 category: "Puzzle / ذكاء",
-                img: "https://images.unsplash.com/photo-1611996575749-79a3a250f948?w=500&q=80",
-                url: "https://play2048.co/"
+                img: "https://images.unsplash.com/photo-1611996575749-79a3a250f948?w=500&q=80"
             },
             {
-                id: 3,
-                title: "Snake Game",
-                category: "Retro / ريترو",
-                img: "https://images.unsplash.com/photo-1628155930542-3c7a64e2c833?w=500&q=80",
-                url: "https://playsnake.org/"
-            },
-            {
-                id: 4,
+                id: "tictactoe",
                 title: "Tic Tac Toe (X O)",
                 category: "Strategy / تحدي",
-                img: "https://images.unsplash.com/photo-1668906093328-99601a1aa584?w=500&q=80",
-                url: "https://playtictactoe.org/"
+                img: "https://images.unsplash.com/photo-1668906093328-99601a1aa584?w=500&q=80"
             },
             {
-                id: 5,
-                title: "Flappy Bird Web",
-                category: "Arcade / تحدي",
-                img: "https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=500&q=80",
-                url: "https://flappybird.io/"
-            },
-            {
-                id: 6,
-                title: "Tetris JS",
-                category: "Classic / ألغاز",
-                img: "https://images.unsplash.com/photo-1607604276583-eef5d076aa5f?w=500&q=80",
-                url: "https://tetris.com/play-tetris"
+                id: "flappy",
+                title: "Flappy Bird",
+                category: "Arcade / الطائر",
+                img: "https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=500&q=80"
             }
         ];
 
-        function renderGames(list) {
+        function renderGames() {
             const grid = document.getElementById('games-grid');
-            grid.innerHTML = list.map(g => `
-                <div class="game-card" onclick="openGame('${g.title}', '${g.url}')">
+            grid.innerHTML = games.map(g => `
+                <div class="game-card" onclick="openGame('${g.id}', '${g.title}')">
                     <div class="img-container">
                         <img src="${g.img}" alt="${g.title}" loading="lazy">
                     </div>
@@ -234,27 +198,32 @@
             `).join('');
         }
 
-        function openGame(title, url) {
+        function openGame(id, title) {
             document.getElementById('modal-title').innerText = title;
-            document.getElementById('game-frame').src = url;
+            const box = document.getElementById('game-box');
+            
+            if (id === 'snake') {
+                box.innerHTML = `<iframe src="https://playsnake.org/" style="width:100%; height:100%; border:none;"></iframe>`;
+            } else if (id === '2048') {
+                box.innerHTML = `<iframe src="https://play2048.co/" style="width:100%; height:100%; border:none;"></iframe>`;
+            } else if (id === 'tictactoe') {
+                box.innerHTML = `<iframe src="https://playtictactoe.org/" style="width:100%; height:100%; border:none;"></iframe>`;
+            } else if (id === 'flappy') {
+                box.innerHTML = `<iframe src="https://flappybird.io/" style="width:100%; height:100%; border:none;"></iframe>`;
+            }
+
             document.getElementById('game-modal').style.display = 'flex';
             document.body.style.overflow = 'hidden';
         }
 
         function closeGame() {
             document.getElementById('game-modal').style.display = 'none';
-            document.getElementById('game-frame').src = '';
+            document.getElementById('game-box').innerHTML = '';
             document.body.style.overflow = 'auto';
         }
 
-        function filterGames() {
-            const query = document.getElementById('search-input').value.toLowerCase();
-            const filtered = games.filter(g => g.title.toLowerCase().includes(query) || g.category.toLowerCase().includes(query));
-            renderGames(filtered);
-        }
-
         window.onload = () => {
-            renderGames(games);
+            renderGames();
             setTimeout(() => {
                 document.getElementById('loader').style.opacity = '0';
                 setTimeout(() => document.getElementById('loader').style.display = 'none', 800);
