@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>LUNOVRA AI QUIZ | منصة الاختبارات التفاعلية</title>
+    <title>LUNOVRA QUIZ | منصة التحديات والاختبارات التفاعلية</title>
     <meta name="monetag" content="3f4088c86eb10f970c25df2fc645fcca">
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Cairo:wght@300;400;700&display=swap" rel="stylesheet">
     
@@ -36,7 +36,7 @@
         .logo-text { font-family: 'Cinzel', serif; font-size: 22px; color: var(--gold); letter-spacing: 3px; }
 
         .hero-banner { text-align: center; padding: 30px 15px 15px; }
-        .hero-banner h1 { font-family: 'Cinzel', serif; color: var(--gold); font-size: 1.8rem; }
+        .hero-banner h1 { font-family: 'Cinzel', serif; color: var(--gold); font-size: 1.8rem; margin-bottom: 5px; }
         .hero-banner p { color: #aaa; font-size: 0.95rem; }
 
         .ai-badge { display: inline-block; background: rgba(197, 160, 89, 0.15); border: 1px solid var(--gold); color: var(--gold-bright); padding: 4px 12px; border-radius: 20px; font-size: 0.75rem; margin-bottom: 10px; font-weight: bold; }
@@ -44,14 +44,14 @@
         main { display: grid; grid-template-columns: repeat(1, 1fr); gap: 20px; padding: 20px; max-width: 800px; margin: 0 auto; }
         @media (min-width: 768px) { main { grid-template-columns: repeat(2, 1fr); } }
 
-        .quiz-card { background: var(--dark-card); border: 1px solid #222; padding: 20px; border-radius: 15px; text-align: center; display: flex; flex-direction: column; justify-content: space-between; }
-        .quiz-card:hover { border-color: var(--gold); }
+        .quiz-card { background: var(--dark-card); border: 1px solid #222; padding: 20px; border-radius: 15px; text-align: center; display: flex; flex-direction: column; justify-content: space-between; transition: var(--transition); }
+        .quiz-card:hover { border-color: var(--gold); transform: translateY(-3px); }
         .quiz-icon { font-size: 45px; margin-bottom: 10px; }
         .quiz-card h3 { color: var(--white); font-size: 1.2rem; margin-bottom: 10px; }
         .quiz-card p { color: #aaa; font-size: 0.85rem; margin-bottom: 20px; }
 
-        .btn-gold { background: transparent; color: var(--gold); border: 1px solid var(--gold); padding: 12px 20px; border-radius: 25px; font-weight: bold; cursor: pointer; transition: var(--transition); width: 100%; }
-        .btn-gold:hover { background: var(--gold); color: #000; }
+        .btn-gold { background: transparent; color: var(--gold); border: 1px solid var(--gold); padding: 12px 20px; border-radius: 25px; font-weight: bold; cursor: pointer; transition: var(--transition); width: 100%; font-size: 0.95rem; }
+        .btn-gold:hover { background: var(--gold); color: #000; box-shadow: 0 0 15px rgba(197, 160, 89, 0.4); }
 
         .quiz-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); z-index: 5000; justify-content: center; align-items: center; padding: 15px; }
         .quiz-box { background: var(--dark-card); border: 1px solid var(--gold); width: 100%; max-width: 600px; border-radius: 15px; padding: 25px; position: relative; }
@@ -59,17 +59,14 @@
         .quiz-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; border-bottom: 1px solid #222; padding-bottom: 10px; }
         .quiz-title { color: var(--gold); font-size: 1rem; font-weight: bold; }
         .close-quiz { cursor: pointer; color: #888; font-size: 20px; }
-
-        .loading-questions { text-align: center; padding: 40px 10px; }
-        .spinner { width: 40px; height: 40px; border: 3px solid rgba(197, 160, 89, 0.2); border-top: 3px solid var(--gold); border-radius: 50%; animation: spin 1s linear infinite; margin: 0 auto 15px; }
-        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        .close-quiz:hover { color: #fff; }
 
         .progress-bar { width: 100%; height: 6px; background: #222; border-radius: 3px; margin-bottom: 20px; overflow: hidden; }
         .progress-fill { height: 100%; background: var(--gold); width: 0%; transition: width 0.3s ease; }
 
         .question-text { font-size: 1.15rem; font-weight: bold; margin-bottom: 20px; color: #fff; text-align: center; }
         .options-list { display: flex; flex-direction: column; gap: 12px; }
-        .option-btn { background: #1a1a1a; border: 1px solid #333; color: #ddd; padding: 14px 18px; border-radius: 10px; text-align: right; cursor: pointer; transition: var(--transition); }
+        .option-btn { background: #1a1a1a; border: 1px solid #333; color: #ddd; padding: 14px 18px; border-radius: 10px; text-align: right; cursor: pointer; transition: var(--transition); font-size: 0.95rem; }
         .option-btn:hover { border-color: var(--gold); background: #222; color: #fff; }
 
         .result-box { text-align: center; padding: 10px 0; }
@@ -77,9 +74,11 @@
         .result-desc { color: #ccc; font-size: 1rem; line-height: 1.7; margin-bottom: 25px; }
 
         .share-btns { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; }
-        .btn-share { padding: 12px 20px; border-radius: 25px; font-weight: bold; cursor: pointer; border: none; font-size: 0.9rem; text-decoration: none; }
+        .btn-share { padding: 12px 20px; border-radius: 25px; font-weight: bold; cursor: pointer; border: none; font-size: 0.9rem; text-decoration: none; transition: var(--transition); }
         .btn-wa { background: #25D366; color: #fff; }
+        .btn-wa:hover { background: #1da851; }
         .btn-copy { background: #333; color: #fff; border: 1px solid var(--gold); }
+        .btn-copy:hover { background: var(--gold); color: #000; }
 
         #toast { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); background: var(--gold); color: #000; padding: 12px 25px; border-radius: 30px; font-weight: bold; opacity: 0; transition: 0.4s; z-index: 10001; pointer-events: none; }
     </style>
@@ -88,47 +87,42 @@
 
     <div id="loader"><div class="loader-logo">LUNOVRA</div></div>
 
-    <header><div class="logo-text">LUNOVRA AI QUIZ</div></header>
+    <header><div class="logo-text">LUNOVRA QUIZ</div></header>
 
     <div class="hero-banner">
-        <span class="ai-badge">✨ Powered by Google Gemini AI</span>
-        <h1>تحديات واختبارات متجددة!</h1>
-        <p>أسئلة فريدة وجديدة تماماً يتم توليدها آلياً في كل مرة لضمان عدم التكرار.</p>
+        <span class="ai-badge">🔥 منصة الاختبارات التفاعلية</span>
+        <h1>تحديات واختبارات ثقافية ممتعة!</h1>
+        <p>اختبر معلوماتك العامة واكتشف نمط شخصيتك عبر اختبارات تفاعلية حصرية.</p>
     </div>
 
     <main>
         <div class="quiz-card">
             <div>
                 <div class="quiz-icon">🧠</div>
-                <h3>تحدي المعلومات العامة الذكي</h3>
-                <p>اختبر ثفافتك مع أسئلة معرفية متجددة يتم إنشاء نقاطها وإجاباتها فوراً!</p>
+                <h3>تحدي المعلومات العامة</h3>
+                <p>أسئلة متنوعة في العلوم والتاريخ والرياضة واختبار حقيقي لمستوى ذكائك والثقافة العامة!</p>
             </div>
-            <button class="btn-gold" onclick="startAIQuiz('trivia')">إبدأ التحدي الآن 🚀</button>
+            <button class="btn-gold" onclick="startQuiz('trivia')">إبدأ التحدي الآن 🚀</button>
         </div>
 
         <div class="quiz-card">
             <div>
                 <div class="quiz-icon">⚔️</div>
-                <h3>اختبار تحليل الشخصية والمواقف</h3>
-                <p>سيناريوهات خيالية جديدة ومواقف مميزة لتحليل أسلوبك وشخصيتك!</p>
+                <h3>اختبار نمط الشخصية</h3>
+                <p>مواقف خيالية وتحليل دقيق لأسلوب تفكيرك وقدرتك على اتخاذ القرارات السريعة!</p>
             </div>
-            <button class="btn-gold" onclick="startAIQuiz('personality')">إبدأ الاختبار الآن 🏆</button>
+            <button class="btn-gold" onclick="startQuiz('personality')">إبدأ الاختبار الآن 🏆</button>
         </div>
     </main>
 
     <div id="quiz-modal" class="quiz-modal">
         <div class="quiz-box">
             <div class="quiz-header">
-                <span class="quiz-title" id="q-modal-title">توليد الأسئلة...</span>
+                <span class="quiz-title" id="q-modal-title">تحدي الاختبار</span>
                 <span class="close-quiz" onclick="closeQuiz()">✕</span>
             </div>
-            
-            <div id="loading-state" class="loading-questions">
-                <div class="spinner"></div>
-                <p style="color: var(--gold); font-weight: bold;">Gemini يبتكر أسئلة جديدة لك...</p>
-            </div>
 
-            <div id="quiz-content" style="display: none;">
+            <div id="quiz-content">
                 <div class="progress-bar"><div class="progress-fill" id="progress"></div></div>
                 <div class="question-text" id="q-text">عنوان السؤال؟</div>
                 <div class="options-list" id="q-options"></div>
@@ -148,7 +142,20 @@
     <div id="toast">تم نسخ الرابط بنجاح!</div>
 
     <script>
-        const GEMINI_API_KEY = "AQ.Ab8RN6Jow3iti-knCH8C50uWYGfUnk9DfBf-9ydcb-PloKMYtw";
+        // بنك الأسئلة المتنوع والممتع
+        const triviaQuestions = [
+            { q: "ما هي عاصمة أستراليا الرسمية؟", options: [{ text: "كانبيرا", correct: true }, { text: "سيدني", correct: false }, { text: "ملبورن", correct: false }, { text: "بريزبن", correct: false }] },
+            { q: "ما هو الكوكب الملقب بـ الكوكب الأحمر؟", options: [{ text: "المريخ", correct: true }, { text: "الزهرة", correct: false }, { text: "المشتري", correct: false }, { text: "زحل", correct: false }] },
+            { q: "ما هو العنصر الكيميائي الذي رمزه 'Au'؟", options: [{ text: "الذهب", correct: true }, { text: "الفضة", correct: false }, { text: "النحاس", correct: false }, { text: "الحديد", correct: false }] },
+            { q: "كم عدد قارات العالم؟", options: [{ text: "7 قارات", correct: true }, { text: "5 قارات", correct: false }, { text: "6 قارات", correct: false }, { text: "8 قارات", correct: false }] },
+            { q: "ما هي أصغر دولة في العالم من حيث المساحة؟", options: [{ text: "الفاتيكان", correct: true }, { text: "موناكو", correct: false }, { text: "مالطا", correct: false }, { text: "سان مارينو", correct: false }] }
+        ];
+
+        const personalityQuestions = [
+            { q: "لو وجدت نفسك فجأة في جزيرة مهجورة، ما أول شيء تفعله؟", options: [{ text: "أستكشف المكان وأبحث عن موارد", type: "شجاع" }, { text: "أبني ملجأ آمنًا للحماية", type: "حكيم" }, { text: "أصنع إشارات استغاثة مبتكرة", type: "مبتكر" }] },
+            { q: "عندما تواجه مشكلة معقدة في عملك أو دراستك، كيف تتصرف؟", options: [{ text: "أحللها بهدوء وخطوة بخطوة", type: "حكيم" }, { text: "أواجهها فوراً وأجرب حلاً سريعاً", type: "شجاع" }, { text: "أفكر خارج الصندوق وأبتكر طريقة جديدة", type: "مبتكر" }] },
+            { q: "ما هي الميزة التي تعتقد أنها توصفك بدقة؟", options: [{ text: "الجرأة وعدم الخوف من التجربة", type: "شجاع" }, { text: "الهدوء والتفكير قبل التحدث", type: "حكيم" }, { text: "الخيال الواسع والحلول الذكية", type: "مبتكر" }] }
+        ];
 
         let currentQuestions = [];
         let currentQuizType = "";
@@ -156,89 +163,20 @@
         let score = 0;
         let lastResultText = "";
 
-        // بنك أسئلة عشوائي احتياطي متنوع (يمنع تكرار سؤال واحد فقط عند انقطاع الاتصال)
-        const fallbackTrivia = [
-            [
-                { q: "ما هي عاصمة أستراليا؟", options: [{ text: "كانبيرا", correct: true }, { text: "سيدني", correct: false }, { text: "ملبورن", correct: false }] },
-                { q: "ما هو أثقل كوكب في المجموعة الشمسية؟", options: [{ text: "المشتري", correct: true }, { text: "زحل", correct: false }, { text: "الأرض", correct: false }] },
-                { q: "في أي سنة اندلعت الحرب العالمية الأولى؟", options: [{ text: "1914", correct: true }, { text: "1939", correct: false }, { text: "1918", correct: false }] }
-            ],
-            [
-                { q: "ما هو العنصر الكيميائي الذي رمزه 'O'؟", options: [{ text: "الأكسجين", correct: true }, { text: "الذهب", correct: false }, { text: "الحديد", correct: false }] },
-                { q: "كم عدد قارات العالم؟", options: [{ text: "7 قارات", correct: true }, { text: "5 قارات", correct: false }, { text: "6 قارات", correct: false }] },
-                { q: "ما هي أصغر دولة في العالم من حيث المساحة؟", options: [{ text: "الفاتيكان", correct: true }, { text: "موناكو", correct: false }, { text: "مالطا", correct: false }] }
-            ]
-        ];
-
-        async function fetchQuestionsFromGemini(type) {
-            let prompt = "";
-            
-            if (type === 'trivia') {
-                prompt = `أنشئ 3 أسئلة معلومات عامة جديدة وصعبة ومبتكرة باللغة العربية. 
-                أرجع النتيجة بصيغة JSON فقط بهذا الهيكل:
-                [
-                  {
-                    "q": "السؤال هنا؟",
-                    "options": [
-                      {"text": "الخيار الصحيح", "correct": true},
-                      {"text": "خيار خاطئ 1", "correct": false},
-                      {"text": "خيار خاطئ 2", "correct": false}
-                    ]
-                  }
-                ]`;
-            } else {
-                prompt = `أنشئ 3 أسئلة تحليل شخصية ومواقف خيالية شيقة.
-                أرجع النتيجة بصيغة JSON فقط بهذه الهيكلية:
-                [
-                  {
-                    "q": "الموقف أو السؤال؟",
-                    "options": [
-                      {"text": "إجابة قيادية وشجاعة", "type": "A"},
-                      {"text": "إجابة هادئة وحكيمة", "type": "B"},
-                      {"text": "إجابة إبداعية وذكية", "type": "C"}
-                    ]
-                  }
-                ]`;
-            }
-
-            try {
-                const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${GEMINI_API_KEY}`, {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({
-                        contents: [{ parts: [{ text: prompt }] }]
-                    })
-                });
-
-                const data = await response.json();
-                let rawText = data.candidates[0].content.parts[0].text;
-                
-                rawText = rawText.replace(/```json/g, '').replace(/```/g, '').trim();
-                return JSON.parse(rawText);
-            } catch (err) {
-                console.warn("AI Connection failed, loading dynamic fallbacks:", err);
-                const randomIdx = Math.floor(Math.random() * fallbackTrivia.length);
-                return fallbackTrivia[randomIdx];
-            }
-        }
-
-        async function startAIQuiz(type) {
+        function startQuiz(type) {
             currentQuizType = type;
             currentStep = 0;
             score = 0;
 
-            document.getElementById('loading-state').style.display = 'block';
-            document.getElementById('quiz-content').style.display = 'none';
+            // اختيار بنك الأسئلة مع ترتيب عشوائي للأسئلة
+            currentQuestions = type === 'trivia' ? [...triviaQuestions].sort(() => Math.random() - 0.5) : [...personalityQuestions].sort(() => Math.random() - 0.5);
+
+            document.getElementById('quiz-content').style.display = 'block';
             document.getElementById('result-content').style.display = 'none';
             document.getElementById('quiz-modal').style.display = 'flex';
             document.body.style.overflow = 'hidden';
 
-            document.getElementById('q-modal-title').innerText = type === 'trivia' ? 'تحدي المعرفة' : 'اختبار الشخصية';
-
-            currentQuestions = await fetchQuestionsFromGemini(type);
-
-            document.getElementById('loading-state').style.display = 'none';
-            document.getElementById('quiz-content').style.display = 'block';
+            document.getElementById('q-modal-title').innerText = type === 'trivia' ? 'تحدي المعرفة العامة' : 'اختبار الشخصية';
 
             showQuestion();
         }
@@ -254,6 +192,7 @@
             const optionsBox = document.getElementById('q-options');
             optionsBox.innerHTML = '';
 
+            // ترتيب الخيارات عشوائياً لكل سؤال
             const shuffledOptions = [...qData.options].sort(() => Math.random() - 0.5);
 
             shuffledOptions.forEach(opt => {
@@ -266,11 +205,8 @@
         }
 
         function handleAnswer(opt) {
-            // التحقق الدقيق: احتساب النقاط فقط إذا كانت الإجابة صحيحة فعلياً
             if (currentQuizType === 'trivia') {
-                if (opt.correct === true) {
-                    score++;
-                }
+                if (opt.correct === true) score++;
             } else {
                 score++;
             }
@@ -292,20 +228,19 @@
             if (currentQuizType === 'trivia') {
                 document.getElementById('res-title').innerText = `حصلت على: ${score} من ${currentQuestions.length} 🏆`;
                 
-                // تقديم تقييم واقعي وحقيقي حسب النتيجة (بدون مدح عند الإجابة الخاطئة)
                 if (score === currentQuestions.length) {
-                    document.getElementById('res-desc').innerText = "ممتاز جداً! أداء أسطوري وإجاباتك كلها صحيحة 100%.";
-                } else if (score > 0) {
-                    document.getElementById('res-desc').innerText = "أداء متوسط، أجبت على بعض الأسئلة بشكل صحيح. يمكنك المحاولة مجدداً لتحقيق الدرجة الكاملة!";
+                    document.getElementById('res-desc').innerText = "أداء أسطوري! أجبت على جميع الأسئلة إجابات صحيحة وبدقة عالية 🎯";
+                } else if (score >= 3) {
+                    document.getElementById('res-desc').innerText = "نتيجة ممتازة! لديك حصيلة ثنائية ومعلومات عامة جيدة جداً 👍";
                 } else {
-                    document.getElementById('res-desc').innerText = "للأسف جميع إجاباتك كانت خاطئة! أعد التحدي واختبر معلوماتك مرة أخرى.";
+                    document.getElementById('res-desc').innerText = "محاولة طيبة! يمكنك إعادة التحدي لرفع مستواك وتحقيق نتيجة أفضل 🔄";
                 }
 
-                lastResultText = `حققت ${score} من ${currentQuestions.length} في تحدي الذكاء والمعلومات! هل تستطيع التغلب علي؟`;
+                lastResultText = `حققت ${score} من ${currentQuestions.length} في تحدي الثقافة والمعلومات العامة! هل يمكنك التغلب علي؟`;
             } else {
                 document.getElementById('res-title').innerText = "تم تحليل شخصيتك بنجاح ✨";
-                document.getElementById('res-desc').innerText = "خياراتك تعكس شخصية متزنة تمتلك قدرة على اتخاذ القرار والتكيف مع المواقف المختلفة بنجاح.";
-                lastResultText = `اكتشفت نمط شخصيتي عبر التحدي التفاعلي! خض التجربة بنفسك.`;
+                document.getElementById('res-desc').innerText = "خياراتك تعكس شخصية واثقة تتمتع بالمرونة وحسن التصرف في المواقف والتفكير المنطقي.";
+                lastResultText = `أتممت اختبار تحليل الشخصية والمواقف! جرب التحدي الآن واكتشف نمط شخصيتك.`;
             }
         }
 
@@ -316,7 +251,7 @@
 
         function shareWhatsApp() {
             const url = window.location.href;
-            const text = `${lastResultText}\n\nجرب التحدي الآن: ${url}`;
+            const text = `${lastResultText}\n\nجرب التحدي بنفسك من هنا: ${url}`;
             window.open(`https://wa.me/?text=${encodeURIComponent(text)}`);
         }
 
