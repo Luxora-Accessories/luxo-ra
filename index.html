@@ -236,8 +236,7 @@
     <div id="toast">تم نسخ الرابط بنجاح!</div>
 
     <script>
-        // ضع مفتاح Google Gemini API الخاص بك هنا
-        const GEMINI_API_KEY = "YOUR_GEMINI_API_KEY";
+        const GEMINI_API_KEY = "AQ.Ab8RN6Jow3iti-knCH8C50uWYGfUnk9DfBf-9ydcb-PloKMYtw";
 
         let currentQuestions = [];
         let currentQuizType = "";
@@ -289,12 +288,10 @@
                 const data = await response.json();
                 let rawText = data.candidates[0].content.parts[0].text;
                 
-                // التنظيف لتنفيذ JSON بدون أخطاء
                 rawText = rawText.replace(/```json/g, '').replace(/```/g, '').trim();
                 return JSON.parse(rawText);
             } catch (err) {
                 console.error("AI Error:", err);
-                // احتياطي في حال وجود خطأ في API Key
                 return [
                     {
                         q: "ما هو الأطول عمرًا بين المكونات الآتية؟",
@@ -321,7 +318,6 @@
 
             document.getElementById('q-modal-title').innerText = type === 'trivia' ? 'تحدي المعرفة' : 'اختبار الشخصية';
 
-            // جلب الأسئلة من Gemini
             currentQuestions = await fetchQuestionsFromGemini(type, topic);
 
             document.getElementById('loading-state').style.display = 'none';
@@ -341,7 +337,6 @@
             const optionsBox = document.getElementById('q-options');
             optionsBox.innerHTML = '';
 
-            // ترتيب الخيارات عشوائياً
             const shuffledOptions = [...qData.options].sort(() => Math.random() - 0.5);
 
             shuffledOptions.forEach(opt => {
@@ -357,7 +352,7 @@
             if (currentQuizType === 'trivia') {
                 if (opt.correct) score++;
             } else {
-                score++; // لاختبار الشخصية
+                score++;
             }
 
             currentStep++;
