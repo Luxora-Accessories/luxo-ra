@@ -79,7 +79,6 @@
         .book-title { font-size: 0.95rem; font-weight: bold; color: #fff; margin-bottom: 5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
         .book-author { font-size: 0.8rem; color: #888; }
 
-        /* Book Modal */
         .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 5000; justify-content: center; align-items: center; padding: 15px; }
         .modal-box { background: var(--dark-card); border: 1px solid var(--gold); width: 100%; max-width: 550px; border-radius: 15px; padding: 25px; position: relative; max-height: 90vh; overflow-y: auto; }
         .close-modal { position: absolute; left: 20px; top: 15px; cursor: pointer; color: #888; font-size: 22px; }
@@ -94,8 +93,6 @@
 
         .btn-action { display: block; width: 100%; text-align: center; background: var(--gold); color: #000; padding: 12px; border-radius: 25px; font-weight: bold; text-decoration: none; transition: var(--transition); border: none; cursor: pointer; margin-top: 10px; }
         .btn-action:hover { background: var(--gold-bright); }
-
-        #toast { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); background: var(--gold); color: #000; padding: 12px 25px; border-radius: 30px; font-weight: bold; opacity: 0; transition: 0.4s; z-index: 10001; pointer-events: none; }
     </style>
 </head>
 <body>
@@ -117,14 +114,14 @@
 
     <div class="categories-nav">
         <button class="cat-btn active" onclick="filterCategory('all', this)">الكل</button>
-        <button class="cat-btn" onclick="filterCategory('novels', this)">الروايات والأنمي</button>
+        <button class="cat-btn" onclick="filterCategory('novels', this)">الروايات والأدب</button>
         <button class="cat-btn" onclick="filterCategory('tech', this)">التكنولوجيا والبرمجة</button>
         <button class="cat-btn" onclick="filterCategory('history', this)">التاريخ والعلوم</button>
         <button class="cat-btn" onclick="filterCategory('self', this)">تطوير الذات</button>
     </div>
 
     <main>
-        <div class="section-title" id="sectionHeading">جميع الكتب المتاحة</div>
+        <div class="section-title">جميع الكتب المتاحة</div>
         <div class="books-grid" id="booksGrid"></div>
     </main>
 
@@ -141,32 +138,59 @@
                 </div>
             </div>
             <div id="mDesc" class="modal-desc">وصف الكتاب وملخصه...</div>
-            <button class="btn-action" onclick="readBook()">قراءة / تحميل الكتاب الآن 📖</button>
+            <a id="mReadBtn" href="#" target="_blank" class="btn-action">قراءة / تحميل الكتاب PDF 📖</a>
         </div>
     </div>
 
-    <div id="toast">تم تجهيز رابط الكتاب!</div>
-
     <script>
-        // قائمة الكتب الأوّلية الشاملة
+        // قائمة كتب ذات روابط قراءة حقيقية وتعمل المباشرة عبر أرشيف الإنترنت
         const books = [
-            { id: 1, title: "مقدمة ابن خلدون", author: "ابن خلدون", cat: "history", cover: "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?w=400", desc: "أحد أشهر كتب التاريخ والاجتماع البشري وتأسيس علم العمران الإنساني.", link: "#" },
-            { id: 2, title: "تعلم لغة JavaScript الحديثة", author: "فريق لوناڤرا", cat: "tech", cover: "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=400", desc: "دليل شامل لبناء التطبيقات والمواقع باستخدام أحدث تقنيات البرمجة.", link: "#" },
-            { id: 3, title: "فن الحرب", author: "سون تزو", cat: "self", cover: "https://images.unsplash.com/photo-1589829085413-56de8ae18c73?w=400", desc: "كتاب إستراتيجي عسكري وتكتيكي أثّر في مجالات التفكير والإدارة الحديثة.", link: "#" },
-            { id: 4, title: "ألف ليلة وليلة", author: "تراث عالمي", cat: "novels", cover: "https://images.unsplash.com/photo-1512820790803-83ca734da794?w=400", desc: "مجموعة من الحكايات والقصص الخيالية الممتعة المستمدة من الشرق القديم.", link: "#" },
-            { id: 5, title: "عالم الذكاء الاصطناعي", author: "د. أحمد كمال", cat: "tech", cover: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=400", desc: "شرح مفصل لتقنيات تعلم الآلة وكيفية بناء نماذج الذكاء الاصطناعي المستقبلية.", link: "#" },
-            { id: 6, title: "قوة العقل الباطن", author: "جوزيف ميرفي", cat: "self", cover: "https://images.unsplash.com/photo-1532012197267-da84d127e765?w=400", desc: "كيف تستخدم تفكيرك وإيمانك الداخلي لتحقيق أهدافك وتغيير حياتك للأفضل.", link: "#" }
+            { 
+                id: 1, 
+                title: "مقدمة ابن خلدون", 
+                author: "ابن خلدون", 
+                cat: "history", 
+                cover: "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?w=400", 
+                desc: "أحد أشهر كتب التاريخ والاجتماع البشري وتأسيس علم العمران الإنساني.", 
+                link: "https://archive.org/embed/MoqaddimatIbnKhaldoun" 
+            },
+            { 
+                id: 2, 
+                title: "فن الحرب", 
+                author: "سون تزو", 
+                cat: "self", 
+                cover: "https://images.unsplash.com/photo-1589829085413-56de8ae18c73?w=400", 
+                desc: "كتاب إستراتيجي عسكري وتكتيكي أثّر في مجالات التفكير والإدارة الحديثة.", 
+                link: "https://archive.org/details/TheArtOfWar_201811" 
+            },
+            { 
+                id: 3, 
+                title: "ألف ليلة وليلة", 
+                author: "تراث عالمي", 
+                cat: "novels", 
+                cover: "https://images.unsplash.com/photo-1512820790803-83ca734da794?w=400", 
+                desc: "مجموعة من الحكايات والقصص الخيالية الممتعة المستمدة من الشرق القديم.", 
+                link: "https://archive.org/details/1001NightsArabic" 
+            },
+            { 
+                id: 4, 
+                title: "دليل البرمجة للمبتدئين", 
+                author: "كتب حرة مفتوحة", 
+                cat: "tech", 
+                cover: "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=400", 
+                desc: "دليل عملي شامل لتعلّم التفكير البرمجي وبناء التطبيقات الحديثة.", 
+                link: "https://archive.org/details/computer-programming-books" 
+            }
         ];
 
         let selectedCategory = 'all';
-        let activeBook = null;
 
         function renderBooks(list) {
             const grid = document.getElementById('booksGrid');
             grid.innerHTML = '';
 
             if (list.length === 0) {
-                grid.innerHTML = '<p style="color: #777; grid-column: 1/-1; text-align: center; padding: 40px;">لم يتم العثور على كتب طابق بحثك.</p>';
+                grid.innerHTML = '<p style="color: #777; grid-column: 1/-1; text-align: center; padding: 40px;">لم يتم العثور على كتب تطابق البحث.</p>';
                 return;
             }
 
@@ -189,29 +213,29 @@
             selectedCategory = cat;
             document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
-
             filterBooks();
         }
 
         function filterBooks() {
             const query = document.getElementById('searchInput').value.toLowerCase().trim();
-            
             const filtered = books.filter(b => {
                 const matchCat = selectedCategory === 'all' || b.cat === selectedCategory;
                 const matchQuery = b.title.toLowerCase().includes(query) || b.author.toLowerCase().includes(query);
                 return matchCat && matchQuery;
             });
-
             renderBooks(filtered);
         }
 
         function openModal(book) {
-            activeBook = book;
             document.getElementById('mCover').src = book.cover;
             document.getElementById('mTitle').innerText = book.title;
             document.getElementById('mAuthor').innerText = `الكاتب: ${book.author}`;
             document.getElementById('mCat').innerText = getCatName(book.cat);
             document.getElementById('mDesc').innerText = book.desc;
+            
+            // ربط الزر برابط الكتاب المباشر
+            const readBtn = document.getElementById('mReadBtn');
+            readBtn.href = book.link;
 
             document.getElementById('bookModal').style.display = 'flex';
             document.body.style.overflow = 'hidden';
@@ -223,15 +247,8 @@
         }
 
         function getCatName(cat) {
-            const names = { novels: 'روايات وأنمي', tech: 'تكنولوجيا', history: 'تاريخ وعلوم', self: 'تطوير الذات' };
+            const names = { novels: 'روايات وأدب', tech: 'تكنولوجيا', history: 'تاريخ وعلوم', self: 'تطوير الذات' };
             return names[cat] || 'عام';
-        }
-
-        function readBook() {
-            const t = document.getElementById('toast');
-            t.innerText = `جاري فتح كتاب: ${activeBook.title}`;
-            t.style.opacity = '1';
-            setTimeout(() => t.style.opacity = '0', 2500);
         }
 
         window.onload = () => {
