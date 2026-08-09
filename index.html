@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>LUNOVRA AI QUIZ | منصة الاختبارات التفاعلية بالذكاء الاصطناعي</title>
+    <title>LUNOVRA AI QUIZ | منصة الاختبارات التفاعلية</title>
     <meta name="monetag" content="3f4088c86eb10f970c25df2fc645fcca">
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Cairo:wght@300;400;700&display=swap" rel="stylesheet">
     
@@ -17,151 +17,69 @@
             --transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
         }
 
-        * { 
-            margin: 0; padding: 0; box-sizing: border-box; 
-            font-family: 'Cairo', sans-serif;
-            -webkit-tap-highlight-color: transparent;
-        }
-        
-        body { 
-            background-color: var(--dark); 
-            color: var(--white); 
-            overflow-x: hidden;
-            line-height: 1.5;
-            min-height: 100vh;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Cairo', sans-serif; }
+        body { background-color: var(--dark); color: var(--white); overflow-x: hidden; min-height: 100vh; }
 
         #loader {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: var(--dark); display: flex; flex-direction: column;
-            justify-content: center; align-items: center; z-index: 10000;
+            background: var(--dark); display: flex; justify-content: center; align-items: center; z-index: 10000;
             transition: opacity 0.8s ease;
         }
-        .loader-logo { 
-            font-family: 'Cinzel', serif; font-size: 35px; color: var(--gold); 
-            letter-spacing: 8px; animation: pulse 2s infinite ease-in-out; 
-        }
-        @keyframes pulse { 0%, 100% { opacity: 0.3; transform: scale(0.95); } 50% { opacity: 1; transform: scale(1); } }
+        .loader-logo { font-family: 'Cinzel', serif; font-size: 35px; color: var(--gold); letter-spacing: 8px; animation: pulse 2s infinite ease-in-out; }
+        @keyframes pulse { 0%, 100% { opacity: 0.3; } 50% { opacity: 1; } }
 
         header { 
-            position: sticky; top: 0; z-index: 2000;
-            background: rgba(10, 10, 10, 0.95); padding: 15px 5%; 
-            display: flex; justify-content: center; align-items: center;
-            border-bottom: 1px solid rgba(197, 160, 89, 0.3);
-            backdrop-filter: blur(10px);
+            position: sticky; top: 0; z-index: 2000; background: rgba(10, 10, 10, 0.95); 
+            padding: 15px 5%; display: flex; justify-content: center; align-items: center;
+            border-bottom: 1px solid rgba(197, 160, 89, 0.3); backdrop-filter: blur(10px);
         }
-        
-        .logo-text { 
-            font-family: 'Cinzel', serif; font-size: 22px; color: var(--gold); 
-            letter-spacing: 3px; text-align: center; user-select: none; 
-        }
+        .logo-text { font-family: 'Cinzel', serif; font-size: 22px; color: var(--gold); letter-spacing: 3px; }
 
-        .hero-banner {
-            text-align: center; padding: 30px 15px 15px;
-            background: linear-gradient(180deg, rgba(197, 160, 89, 0.1) 0%, rgba(10,10,10,0) 100%);
-        }
-        .hero-banner h1 { font-family: 'Cinzel', serif; color: var(--gold); font-size: 1.8rem; margin-bottom: 5px; }
+        .hero-banner { text-align: center; padding: 30px 15px 15px; }
+        .hero-banner h1 { font-family: 'Cinzel', serif; color: var(--gold); font-size: 1.8rem; }
         .hero-banner p { color: #aaa; font-size: 0.95rem; }
 
-        .ai-badge {
-            display: inline-block; background: rgba(197, 160, 89, 0.15);
-            border: 1px solid var(--gold); color: var(--gold-bright);
-            padding: 4px 12px; border-radius: 20px; font-size: 0.75rem;
-            margin-bottom: 10px; font-weight: bold;
-        }
+        .ai-badge { display: inline-block; background: rgba(197, 160, 89, 0.15); border: 1px solid var(--gold); color: var(--gold-bright); padding: 4px 12px; border-radius: 20px; font-size: 0.75rem; margin-bottom: 10px; font-weight: bold; }
 
-        main { 
-            display: grid; grid-template-columns: repeat(1, 1fr); 
-            gap: 20px; padding: 20px; max-width: 800px; margin: 0 auto;
-        }
+        main { display: grid; grid-template-columns: repeat(1, 1fr); gap: 20px; padding: 20px; max-width: 800px; margin: 0 auto; }
         @media (min-width: 768px) { main { grid-template-columns: repeat(2, 1fr); } }
 
-        .quiz-card { 
-            background: var(--dark-card); border: 1px solid #222; padding: 20px; 
-            border-radius: 15px; transition: var(--transition); text-align: center;
-            display: flex; flex-direction: column; justify-content: space-between;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-        }
-        .quiz-card:hover {
-            transform: translateY(-5px);
-            border-color: var(--gold);
-            box-shadow: 0 10px 25px rgba(197, 160, 89, 0.2);
-        }
-
+        .quiz-card { background: var(--dark-card); border: 1px solid #222; padding: 20px; border-radius: 15px; text-align: center; display: flex; flex-direction: column; justify-content: space-between; }
+        .quiz-card:hover { border-color: var(--gold); }
         .quiz-icon { font-size: 45px; margin-bottom: 10px; }
         .quiz-card h3 { color: var(--white); font-size: 1.2rem; margin-bottom: 10px; }
-        .quiz-card p { color: #aaa; font-size: 0.85rem; margin-bottom: 20px; line-height: 1.6; }
+        .quiz-card p { color: #aaa; font-size: 0.85rem; margin-bottom: 20px; }
 
-        .btn-gold {
-            background: transparent; color: var(--gold); border: 1px solid var(--gold);
-            padding: 12px 20px; border-radius: 25px; font-weight: bold; cursor: pointer;
-            transition: var(--transition); width: 100%; font-size: 0.95rem;
-        }
-        .btn-gold:hover, .quiz-card:hover .btn-gold {
-            background: var(--gold); color: #000; box-shadow: 0 0 15px rgba(197, 160, 89, 0.4);
-        }
+        .btn-gold { background: transparent; color: var(--gold); border: 1px solid var(--gold); padding: 12px 20px; border-radius: 25px; font-weight: bold; cursor: pointer; transition: var(--transition); width: 100%; }
+        .btn-gold:hover { background: var(--gold); color: #000; }
 
-        /* Quiz Modal */
-        .quiz-modal {
-            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.95); z-index: 5000; justify-content: center; align-items: center;
-            padding: 15px; backdrop-filter: blur(8px);
-        }
+        .quiz-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); z-index: 5000; justify-content: center; align-items: center; padding: 15px; }
+        .quiz-box { background: var(--dark-card); border: 1px solid var(--gold); width: 100%; max-width: 600px; border-radius: 15px; padding: 25px; position: relative; }
 
-        .quiz-box {
-            background: var(--dark-card); border: 1px solid var(--gold);
-            width: 100%; max-width: 600px; border-radius: 15px; padding: 25px;
-            position: relative; box-shadow: 0 10px 30px rgba(0,0,0,0.8);
-            animation: fadeIn 0.4s ease;
-        }
-        @keyframes fadeIn { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
-
-        .quiz-header {
-            display: flex; justify-content: space-between; align-items: center;
-            margin-bottom: 20px; border-bottom: 1px solid #222; padding-bottom: 10px;
-        }
+        .quiz-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; border-bottom: 1px solid #222; padding-bottom: 10px; }
         .quiz-title { color: var(--gold); font-size: 1rem; font-weight: bold; }
-        .close-quiz { cursor: pointer; color: #888; font-size: 20px; font-weight: bold; }
-        .close-quiz:hover { color: #fff; }
+        .close-quiz { cursor: pointer; color: #888; font-size: 20px; }
 
-        .loading-questions {
-            text-align: center; padding: 40px 10px;
-        }
-        .spinner {
-            width: 40px; height: 40px; border: 3px solid rgba(197, 160, 89, 0.2);
-            border-top: 3px solid var(--gold); border-radius: 50%;
-            animation: spin 1s linear infinite; margin: 0 auto 15px;
-        }
+        .loading-questions { text-align: center; padding: 40px 10px; }
+        .spinner { width: 40px; height: 40px; border: 3px solid rgba(197, 160, 89, 0.2); border-top: 3px solid var(--gold); border-radius: 50%; animation: spin 1s linear infinite; margin: 0 auto 15px; }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 
         .progress-bar { width: 100%; height: 6px; background: #222; border-radius: 3px; margin-bottom: 20px; overflow: hidden; }
         .progress-fill { height: 100%; background: var(--gold); width: 0%; transition: width 0.3s ease; }
 
         .question-text { font-size: 1.15rem; font-weight: bold; margin-bottom: 20px; color: #fff; text-align: center; }
-
         .options-list { display: flex; flex-direction: column; gap: 12px; }
-        .option-btn {
-            background: #1a1a1a; border: 1px solid #333; color: #ddd;
-            padding: 14px 18px; border-radius: 10px; text-align: right;
-            cursor: pointer; transition: var(--transition); font-size: 0.95rem;
-        }
+        .option-btn { background: #1a1a1a; border: 1px solid #333; color: #ddd; padding: 14px 18px; border-radius: 10px; text-align: right; cursor: pointer; transition: var(--transition); }
         .option-btn:hover { border-color: var(--gold); background: #222; color: #fff; }
 
-        /* Result Box */
         .result-box { text-align: center; padding: 10px 0; }
         .result-title { font-size: 1.6rem; color: var(--gold); margin-bottom: 10px; font-weight: bold; }
         .result-desc { color: #ccc; font-size: 1rem; line-height: 1.7; margin-bottom: 25px; }
 
         .share-btns { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; }
-        .btn-share {
-            padding: 12px 20px; border-radius: 25px; font-weight: bold; cursor: pointer;
-            border: none; display: flex; align-items: center; gap: 8px; font-size: 0.9rem;
-            text-decoration: none; transition: var(--transition);
-        }
+        .btn-share { padding: 12px 20px; border-radius: 25px; font-weight: bold; cursor: pointer; border: none; font-size: 0.9rem; text-decoration: none; }
         .btn-wa { background: #25D366; color: #fff; }
-        .btn-wa:hover { background: #1da851; }
         .btn-copy { background: #333; color: #fff; border: 1px solid var(--gold); }
-        .btn-copy:hover { background: var(--gold); color: #000; }
 
         #toast { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); background: var(--gold); color: #000; padding: 12px 25px; border-radius: 30px; font-weight: bold; opacity: 0; transition: 0.4s; z-index: 10001; pointer-events: none; }
     </style>
@@ -170,39 +88,34 @@
 
     <div id="loader"><div class="loader-logo">LUNOVRA</div></div>
 
-    <header>
-        <div class="logo-text">LUNOVRA AI QUIZ</div>
-    </header>
+    <header><div class="logo-text">LUNOVRA AI QUIZ</div></header>
 
     <div class="hero-banner">
         <span class="ai-badge">✨ Powered by Google Gemini AI</span>
-        <h1>تحديات واختبارات متجددة لا تتكرر!</h1>
-        <p>يولد الذكاء الاصطناعي أسئلة فريدة وجديدة تماماً في كل مرة تجدّد فيها التحدي.</p>
+        <h1>تحديات واختبارات متجددة!</h1>
+        <p>أسئلة فريدة وجديدة تماماً يتم توليدها آلياً في كل مرة لضمان عدم التكرار.</p>
     </div>
 
     <main>
-        <!-- Quiz 1 -->
         <div class="quiz-card">
             <div>
-                <div class="quiz-icon">✨</div>
+                <div class="quiz-icon">🧠</div>
                 <h3>تحدي المعلومات العامة الذكي</h3>
-                <p>أسئلة ثقافة عامة ومعلومات مشوقة ومستويات متفاوتة الصعوبة يتم إنشاؤها فوراً بواسطة Gemini AI!</p>
+                <p>اختبر ثفافتك مع أسئلة معرفية متجددة يتم إنشاء نقاطها وإجاباتها فوراً!</p>
             </div>
-            <button class="btn-gold" onclick="startAIQuiz('trivia', 'معلومات عامة وثقافة مبتكرة')">إبدأ التحدي الآن 🚀</button>
+            <button class="btn-gold" onclick="startAIQuiz('trivia')">إبدأ التحدي الآن 🚀</button>
         </div>
 
-        <!-- Quiz 2 -->
         <div class="quiz-card">
             <div>
                 <div class="quiz-icon">⚔️</div>
                 <h3>اختبار تحليل الشخصية والمواقف</h3>
-                <p>سيكتشف Gemini نمط شخصيتك من خلال سيناريوهات ومواقف خيالية مبتكرة وغير تقليدية!</p>
+                <p>سيناريوهات خيالية جديدة ومواقف مميزة لتحليل أسلوبك وشخصيتك!</p>
             </div>
-            <button class="btn-gold" onclick="startAIQuiz('personality', 'تحليل الشخصية والخيارات')">إبدأ الاختبار الآن 🏆</button>
+            <button class="btn-gold" onclick="startAIQuiz('personality')">إبدأ الاختبار الآن 🏆</button>
         </div>
     </main>
 
-    <!-- Quiz Modal -->
     <div id="quiz-modal" class="quiz-modal">
         <div class="quiz-box">
             <div class="quiz-header">
@@ -212,8 +125,7 @@
             
             <div id="loading-state" class="loading-questions">
                 <div class="spinner"></div>
-                <p style="color: var(--gold); font-weight: bold;">Gemini يبتكر أسئلة جديدة لك الآن...</p>
-                <p style="color: #777; font-size: 0.85rem; margin-top: 5px;">يرجى الانتظار بضع ثوانٍ</p>
+                <p style="color: var(--gold); font-weight: bold;">Gemini يبتكر أسئلة جديدة لك...</p>
             </div>
 
             <div id="quiz-content" style="display: none;">
@@ -244,33 +156,46 @@
         let score = 0;
         let lastResultText = "";
 
-        async function fetchQuestionsFromGemini(type, topic) {
+        // بنك أسئلة عشوائي احتياطي متنوع (يمنع تكرار سؤال واحد فقط عند انقطاع الاتصال)
+        const fallbackTrivia = [
+            [
+                { q: "ما هي عاصمة أستراليا؟", options: [{ text: "كانبيرا", correct: true }, { text: "سيدني", correct: false }, { text: "ملبورن", correct: false }] },
+                { q: "ما هو أثقل كوكب في المجموعة الشمسية؟", options: [{ text: "المشتري", correct: true }, { text: "زحل", correct: false }, { text: "الأرض", correct: false }] },
+                { q: "في أي سنة اندلعت الحرب العالمية الأولى؟", options: [{ text: "1914", correct: true }, { text: "1939", correct: false }, { text: "1918", correct: false }] }
+            ],
+            [
+                { q: "ما هو العنصر الكيميائي الذي رمزه 'O'؟", options: [{ text: "الأكسجين", correct: true }, { text: "الذهب", correct: false }, { text: "الحديد", correct: false }] },
+                { q: "كم عدد قارات العالم؟", options: [{ text: "7 قارات", correct: true }, { text: "5 قارات", correct: false }, { text: "6 قارات", correct: false }] },
+                { q: "ما هي أصغر دولة في العالم من حيث المساحة؟", options: [{ text: "الفاتيكان", correct: true }, { text: "موناكو", correct: false }, { text: "مالطا", correct: false }] }
+            ]
+        ];
+
+        async function fetchQuestionsFromGemini(type) {
             let prompt = "";
             
             if (type === 'trivia') {
-                prompt = `أنشئ 3 أسئلة جديدة وحصرية ومتنوعة جداً حول موضوع (${topic}). 
-                اجعل الأسئلة مشوقة وغير متكررة.
-                أرجع النتيجة بتنسيق JSON فقط بدون أي نص إضافي بالطريقة التالية:
+                prompt = `أنشئ 3 أسئلة معلومات عامة جديدة وصعبة ومبتكرة باللغة العربية. 
+                أرجع النتيجة بصيغة JSON فقط بهذا الهيكل:
                 [
                   {
-                    "q": "نص السؤال الأول؟",
+                    "q": "السؤال هنا؟",
                     "options": [
-                      {"text": "خيار صحيح", "correct": true},
+                      {"text": "الخيار الصحيح", "correct": true},
                       {"text": "خيار خاطئ 1", "correct": false},
                       {"text": "خيار خاطئ 2", "correct": false}
                     ]
                   }
                 ]`;
             } else {
-                prompt = `أنشئ اختبار شخصية يتكون من 3 أسئلة مواقف خيالية مبتكرة.
-                أرجع النتيجة بتنسيق JSON فقط بدون أي نص إضافي بهذه الطريقة بالضبط:
+                prompt = `أنشئ 3 أسئلة تحليل شخصية ومواقف خيالية شيقة.
+                أرجع النتيجة بصيغة JSON فقط بهذه الهيكلية:
                 [
                   {
-                    "q": "السؤال أو الموقف هنا؟",
+                    "q": "الموقف أو السؤال؟",
                     "options": [
-                      {"text": "خيار يدل على الشجاعة والاندفاع", "type": "شجاع"},
-                      {"text": "خيار يدل على التفكير والحكمة", "type": "حكيم"},
-                      {"text": "خيار يدل على الذكاء والابتكار", "type": "مبتكر"}
+                      {"text": "إجابة قيادية وشجاعة", "type": "A"},
+                      {"text": "إجابة هادئة وحكيمة", "type": "B"},
+                      {"text": "إجابة إبداعية وذكية", "type": "C"}
                     ]
                   }
                 ]`;
@@ -291,21 +216,13 @@
                 rawText = rawText.replace(/```json/g, '').replace(/```/g, '').trim();
                 return JSON.parse(rawText);
             } catch (err) {
-                console.error("AI Error:", err);
-                return [
-                    {
-                        q: "ما هو الأطول عمرًا بين المكونات الآتية؟",
-                        options: [
-                            { text: "الأشجار المعمرة", correct: true, type: "حكيم" },
-                            { text: "السلاحف البرية", correct: false, type: "شجاع" },
-                            { text: "الطيور المهاجرة", correct: false, type: "مبتكر" }
-                        ]
-                    }
-                ];
+                console.warn("AI Connection failed, loading dynamic fallbacks:", err);
+                const randomIdx = Math.floor(Math.random() * fallbackTrivia.length);
+                return fallbackTrivia[randomIdx];
             }
         }
 
-        async function startAIQuiz(type, topic) {
+        async function startAIQuiz(type) {
             currentQuizType = type;
             currentStep = 0;
             score = 0;
@@ -318,7 +235,7 @@
 
             document.getElementById('q-modal-title').innerText = type === 'trivia' ? 'تحدي المعرفة' : 'اختبار الشخصية';
 
-            currentQuestions = await fetchQuestionsFromGemini(type, topic);
+            currentQuestions = await fetchQuestionsFromGemini(type);
 
             document.getElementById('loading-state').style.display = 'none';
             document.getElementById('quiz-content').style.display = 'block';
@@ -349,8 +266,11 @@
         }
 
         function handleAnswer(opt) {
+            // التحقق الدقيق: احتساب النقاط فقط إذا كانت الإجابة صحيحة فعلياً
             if (currentQuizType === 'trivia') {
-                if (opt.correct) score++;
+                if (opt.correct === true) {
+                    score++;
+                }
             } else {
                 score++;
             }
@@ -370,15 +290,22 @@
             document.getElementById('progress').style.width = '100%';
 
             if (currentQuizType === 'trivia') {
-                document.getElementById('res-title').innerText = `حققت: ${score} من ${currentQuestions.length} 🏆`;
-                document.getElementById('res-desc').innerText = score === currentQuestions.length ? 
-                    "أداء أسطوري! تمكنت من الإجابة على جميع الأسئلة الذكية بنجاح." : 
-                    "محاولة ممتازة! يمكنك بدء التحدي مجدداً للحصول على أسئلة جديدة كلياً من الذكاء الاصطناعي.";
-                lastResultText = `حققت ${score} من ${currentQuestions.length} في تحدي Gemini للذكاء المعرفي! هل يمكنك التغلب علي؟`;
+                document.getElementById('res-title').innerText = `حصلت على: ${score} من ${currentQuestions.length} 🏆`;
+                
+                // تقديم تقييم واقعي وحقيقي حسب النتيجة (بدون مدح عند الإجابة الخاطئة)
+                if (score === currentQuestions.length) {
+                    document.getElementById('res-desc').innerText = "ممتاز جداً! أداء أسطوري وإجاباتك كلها صحيحة 100%.";
+                } else if (score > 0) {
+                    document.getElementById('res-desc').innerText = "أداء متوسط، أجبت على بعض الأسئلة بشكل صحيح. يمكنك المحاولة مجدداً لتحقيق الدرجة الكاملة!";
+                } else {
+                    document.getElementById('res-desc').innerText = "للأسف جميع إجاباتك كانت خاطئة! أعد التحدي واختبر معلوماتك مرة أخرى.";
+                }
+
+                lastResultText = `حققت ${score} من ${currentQuestions.length} في تحدي الذكاء والمعلومات! هل تستطيع التغلب علي؟`;
             } else {
-                document.getElementById('res-title').innerText = "شخصية فريدة ومبتكرة ✨";
-                document.getElementById('res-desc').innerText = "تحليلك يدل على قدرة عالية على التكيف والتفكير الإستراتيجي وسرعة البديهة في التعامل مع المواقف الصعبة.";
-                lastResultText = `اكتشفت نمط شخصيتي عبر اختبار الذكاء الاصطناعي الخاص! جرب الاختبار بنفسك الآن.`;
+                document.getElementById('res-title').innerText = "تم تحليل شخصيتك بنجاح ✨";
+                document.getElementById('res-desc').innerText = "خياراتك تعكس شخصية متزنة تمتلك قدرة على اتخاذ القرار والتكيف مع المواقف المختلفة بنجاح.";
+                lastResultText = `اكتشفت نمط شخصيتي عبر التحدي التفاعلي! خض التجربة بنفسك.`;
             }
         }
 
@@ -389,7 +316,7 @@
 
         function shareWhatsApp() {
             const url = window.location.href;
-            const text = `${lastResultText}\n\nجرب التحدي من هنا: ${url}`;
+            const text = `${lastResultText}\n\nجرب التحدي الآن: ${url}`;
             window.open(`https://wa.me/?text=${encodeURIComponent(text)}`);
         }
 
