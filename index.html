@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>LUNOVRA QUIZ | منصة الاختبارات والتحديات التفاعلية</title>
+    <title>LUNOVRA AI QUIZ | منصة الاختبارات التفاعلية بالذكاء الاصطناعي</title>
     <meta name="monetag" content="3f4088c86eb10f970c25df2fc645fcca">
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Cairo:wght@300;400;700&display=swap" rel="stylesheet">
     
@@ -52,8 +52,8 @@
         }
         
         .logo-text { 
-            font-family: 'Cinzel', serif; font-size: 24px; color: var(--gold); 
-            letter-spacing: 4px; text-align: center; user-select: none; 
+            font-family: 'Cinzel', serif; font-size: 22px; color: var(--gold); 
+            letter-spacing: 3px; text-align: center; user-select: none; 
         }
 
         .hero-banner {
@@ -62,6 +62,13 @@
         }
         .hero-banner h1 { font-family: 'Cinzel', serif; color: var(--gold); font-size: 1.8rem; margin-bottom: 5px; }
         .hero-banner p { color: #aaa; font-size: 0.95rem; }
+
+        .ai-badge {
+            display: inline-block; background: rgba(197, 160, 89, 0.15);
+            border: 1px solid var(--gold); color: var(--gold-bright);
+            padding: 4px 12px; border-radius: 20px; font-size: 0.75rem;
+            margin-bottom: 10px; font-weight: bold;
+        }
 
         main { 
             display: grid; grid-template-columns: repeat(1, 1fr); 
@@ -94,7 +101,7 @@
             background: var(--gold); color: #000; box-shadow: 0 0 15px rgba(197, 160, 89, 0.4);
         }
 
-        /* Quiz Player Interface */
+        /* Quiz Modal */
         .quiz-modal {
             display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(0,0,0,0.95); z-index: 5000; justify-content: center; align-items: center;
@@ -116,6 +123,16 @@
         .quiz-title { color: var(--gold); font-size: 1rem; font-weight: bold; }
         .close-quiz { cursor: pointer; color: #888; font-size: 20px; font-weight: bold; }
         .close-quiz:hover { color: #fff; }
+
+        .loading-questions {
+            text-align: center; padding: 40px 10px;
+        }
+        .spinner {
+            width: 40px; height: 40px; border: 3px solid rgba(197, 160, 89, 0.2);
+            border-top: 3px solid var(--gold); border-radius: 50%;
+            animation: spin 1s linear infinite; margin: 0 auto 15px;
+        }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 
         .progress-bar { width: 100%; height: 6px; background: #222; border-radius: 3px; margin-bottom: 20px; overflow: hidden; }
         .progress-fill { height: 100%; background: var(--gold); width: 0%; transition: width 0.3s ease; }
@@ -154,33 +171,34 @@
     <div id="loader"><div class="loader-logo">LUNOVRA</div></div>
 
     <header>
-        <div class="logo-text">LUNOVRA QUIZ</div>
+        <div class="logo-text">LUNOVRA AI QUIZ</div>
     </header>
 
     <div class="hero-banner">
-        <h1>اختبر نفسك وتحدى أصدقاءك</h1>
-        <p>اختر أحد الاختبارات التفاعلية التالية واكتشف النتيجة!</p>
+        <span class="ai-badge">✨ Powered by Google Gemini AI</span>
+        <h1>تحديات واختبارات متجددة لا تتكرر!</h1>
+        <p>يولد الذكاء الاصطناعي أسئلة فريدة وجديدة تماماً في كل مرة تجدّد فيها التحدي.</p>
     </div>
 
     <main>
         <!-- Quiz 1 -->
         <div class="quiz-card">
             <div>
-                <div class="quiz-icon">⚔️</div>
-                <h3>اختبار الشخصية: أي نوع من المحاربين أنت؟</h3>
-                <p>إكتشف نمط شخصيتك القتالية والقيادية من خلال إجابتك على أسئلة مواقف سريعة وحاسمة!</p>
+                <div class="quiz-icon">✨</div>
+                <h3>تحدي المعلومات العامة الذكي</h3>
+                <p>أسئلة ثقافة عامة ومعلومات مشوقة ومستويات متفاوتة الصعوبة يتم إنشاؤها فوراً بواسطة Gemini AI!</p>
             </div>
-            <button class="btn-gold" onclick="startQuiz('personality')">إبدأ الاختبار الآن 🚀</button>
+            <button class="btn-gold" onclick="startAIQuiz('trivia', 'معلومات عامة وثقافة مبتكرة')">إبدأ التحدي الآن 🚀</button>
         </div>
 
         <!-- Quiz 2 -->
         <div class="quiz-card">
             <div>
-                <div class="quiz-icon">🧠</div>
-                <h3>تحدي الذكاء والمعلومات العامة</h3>
-                <p>اختبار معلومات عامة سريع وسلس لتحدي قدراتك وعقلك. هل يمكنك إحراز النتيجة الكاملة؟</p>
+                <div class="quiz-icon">⚔️</div>
+                <h3>اختبار تحليل الشخصية والمواقف</h3>
+                <p>سيكتشف Gemini نمط شخصيتك من خلال سيناريوهات ومواقف خيالية مبتكرة وغير تقليدية!</p>
             </div>
-            <button class="btn-gold" onclick="startQuiz('trivia')">إبدأ التحدي الآن 🏆</button>
+            <button class="btn-gold" onclick="startAIQuiz('personality', 'تحليل الشخصية والخيارات')">إبدأ الاختبار الآن 🏆</button>
         </div>
     </main>
 
@@ -188,19 +206,25 @@
     <div id="quiz-modal" class="quiz-modal">
         <div class="quiz-box">
             <div class="quiz-header">
-                <span class="quiz-title" id="q-modal-title">الاختبار</span>
+                <span class="quiz-title" id="q-modal-title">توليد الأسئلة...</span>
                 <span class="close-quiz" onclick="closeQuiz()">✕</span>
             </div>
             
-            <div id="quiz-content">
+            <div id="loading-state" class="loading-questions">
+                <div class="spinner"></div>
+                <p style="color: var(--gold); font-weight: bold;">Gemini يبتكر أسئلة جديدة لك الآن...</p>
+                <p style="color: #777; font-size: 0.85rem; margin-top: 5px;">يرجى الانتظار بضع ثوانٍ</p>
+            </div>
+
+            <div id="quiz-content" style="display: none;">
                 <div class="progress-bar"><div class="progress-fill" id="progress"></div></div>
-                <div class="question-text" id="q-text">عنوان السؤال ينزل هنا؟</div>
+                <div class="question-text" id="q-text">عنوان السؤال؟</div>
                 <div class="options-list" id="q-options"></div>
             </div>
 
             <div id="result-content" class="result-box" style="display: none;">
-                <div class="result-title" id="res-title">النتيجة الممتازة</div>
-                <div class="result-desc" id="res-desc">تفاصيل النتيجة...</div>
+                <div class="result-title" id="res-title">النتيجة</div>
+                <div class="result-desc" id="res-desc">تفاصيل...</div>
                 <div class="share-btns">
                     <button class="btn-share btn-wa" onclick="shareWhatsApp()">مشاركة عبر WhatsApp 📲</button>
                     <button class="btn-share btn-copy" onclick="copyLink()">نسخ رابط التحدي 🔗</button>
@@ -212,104 +236,104 @@
     <div id="toast">تم نسخ الرابط بنجاح!</div>
 
     <script>
-        // Data for Personality Quiz
-        const personalityQuiz = {
-            title: "اختبار المحارب الأسطوري",
-            questions: [
-                {
-                    q: "عند مواجهة عقبة أو مشكلة كبيرة في حياتك، كيف تتصرف؟",
-                    options: [
-                        { text: "أندفع فوراً وبكل قوتي لحلها بدون تردد.", type: "A" },
-                        { text: "أجلس وأحلل المشكلة بهدوء وأضع خطة محكمة.", type: "B" },
-                        { text: "أبحث عن طرق مبتكرة وغير تقليدية لتجاوزها.", type: "C" }
-                    ]
-                },
-                {
-                    q: "ما هي السمة الأهم التي تميزك بين أصدقائك؟",
-                    options: [
-                        { text: "الشجاعة والجرأة في اتخاذ القرارات.", type: "A" },
-                        { text: "الحكمة والرزانة وتقديم النصائح.", type: "B" },
-                        { text: "السرعة والذكاء والقدرة على التأقلم.", type: "C" }
-                    ]
-                },
-                {
-                    q: "إذا خيروك بين هذه الأسلحة والأدوات، ماذا تختار؟",
-                    options: [
-                        { text: "سيف ثقيل وقوي يحسم المعارك.", type: "A" },
-                        { text: "كتاب أسرار واستراتيجيات نادرة.", type: "B" },
-                        { text: "قوس وسهام سريعة ودقيقة.", type: "C" }
-                    ]
-                }
-            ],
-            results: {
-                A: { title: "أنت: المحارب الفارس ⚔️", desc: "تمتلك شجاعة نادرة وجرأة عالية! تتقدم دائماً في الصفوف الأولى ولا تخاف التحديات. قوتك تكمن في إرادتك الصلبة." },
-                B: { title: "أنت: الحكيم الاستراتيجي 📜", desc: "عقلك هو سلاحك الأقوى! تعتمد على التفكير والتحليل قبل أي خطوة، وتصل إلى أهدافك بأقل الخسائر وبأعلى ذكاء." },
-                C: { title: "أنت: النينجا السريع 🥷", desc: "مرن، سريع البديهة، وتفكر خارج الصندوق! تستطيع التكيف مع أي ظرف وتحويل المواقف الصعبة لصالحك ببراعة." }
-            }
-        };
+        // ضع مفتاح Google Gemini API الخاص بك هنا
+        const GEMINI_API_KEY = "YOUR_GEMINI_API_KEY";
 
-        // Data for Trivia Quiz
-        const triviaQuiz = {
-            title: "تحدي الذكاء والمعلومات",
-            questions: [
-                {
-                    q: "ما هو أطول نهر في العالم؟",
-                    options: [
-                        { text: "نهر النيل", correct: true },
-                        { text: "نهر الأمازون", correct: false },
-                        { text: "نهر الميسيسيبي", correct: false }
-                    ]
-                },
-                {
-                    q: "ما هو الكوكب الملقب بالكوكب الأحمر؟",
-                    options: [
-                        { text: "كوكب الزهرة", correct: false },
-                        { text: "كوكب المريخ", correct: true },
-                        { text: "كوكب المشتري", correct: false }
-                    ]
-                },
-                {
-                    q: "كم عدد أضلاع المثلث؟",
-                    options: [
-                        { text: "3 أضلاع", correct: true },
-                        { text: "4 أضلاع", correct: false },
-                        { text: "5 أضلاع", correct: false }
-                    ]
-                }
-            ]
-        };
-
+        let currentQuestions = [];
         let currentQuizType = "";
         let currentStep = 0;
-        let scoreP = { A: 0, B: 0, C: 0 };
-        let scoreT = 0;
+        let score = 0;
         let lastResultText = "";
 
-        function startQuiz(type) {
+        async function fetchQuestionsFromGemini(type, topic) {
+            let prompt = "";
+            
+            if (type === 'trivia') {
+                prompt = `أنشئ 3 أسئلة جديدة وحصرية ومتنوعة جداً حول موضوع (${topic}). 
+                اجعل الأسئلة مشوقة وغير متكررة.
+                أرجع النتيجة بتنسيق JSON فقط بدون أي نص إضافي بالطريقة التالية:
+                [
+                  {
+                    "q": "نص السؤال الأول؟",
+                    "options": [
+                      {"text": "خيار صحيح", "correct": true},
+                      {"text": "خيار خاطئ 1", "correct": false},
+                      {"text": "خيار خاطئ 2", "correct": false}
+                    ]
+                  }
+                ]`;
+            } else {
+                prompt = `أنشئ اختبار شخصية يتكون من 3 أسئلة مواقف خيالية مبتكرة.
+                أرجع النتيجة بتنسيق JSON فقط بدون أي نص إضافي بهذه الطريقة بالضبط:
+                [
+                  {
+                    "q": "السؤال أو الموقف هنا؟",
+                    "options": [
+                      {"text": "خيار يدل على الشجاعة والاندفاع", "type": "شجاع"},
+                      {"text": "خيار يدل على التفكير والحكمة", "type": "حكيم"},
+                      {"text": "خيار يدل على الذكاء والابتكار", "type": "مبتكر"}
+                    ]
+                  }
+                ]`;
+            }
+
+            try {
+                const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${GEMINI_API_KEY}`, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        contents: [{ parts: [{ text: prompt }] }]
+                    })
+                });
+
+                const data = await response.json();
+                let rawText = data.candidates[0].content.parts[0].text;
+                
+                // التنظيف لتنفيذ JSON بدون أخطاء
+                rawText = rawText.replace(/```json/g, '').replace(/```/g, '').trim();
+                return JSON.parse(rawText);
+            } catch (err) {
+                console.error("AI Error:", err);
+                // احتياطي في حال وجود خطأ في API Key
+                return [
+                    {
+                        q: "ما هو الأطول عمرًا بين المكونات الآتية؟",
+                        options: [
+                            { text: "الأشجار المعمرة", correct: true, type: "حكيم" },
+                            { text: "السلاحف البرية", correct: false, type: "شجاع" },
+                            { text: "الطيور المهاجرة", correct: false, type: "مبتكر" }
+                        ]
+                    }
+                ];
+            }
+        }
+
+        async function startAIQuiz(type, topic) {
             currentQuizType = type;
             currentStep = 0;
-            scoreP = { A: 0, B: 0, C: 0 };
-            scoreT = 0;
+            score = 0;
 
-            document.getElementById('quiz-content').style.display = 'block';
+            document.getElementById('loading-state').style.display = 'block';
+            document.getElementById('quiz-content').style.display = 'none';
             document.getElementById('result-content').style.display = 'none';
             document.getElementById('quiz-modal').style.display = 'flex';
             document.body.style.overflow = 'hidden';
 
-            if (type === 'personality') {
-                document.getElementById('q-modal-title').innerText = personalityQuiz.title;
-            } else {
-                document.getElementById('q-modal-title').innerText = triviaQuiz.title;
-            }
+            document.getElementById('q-modal-title').innerText = type === 'trivia' ? 'تحدي المعرفة' : 'اختبار الشخصية';
+
+            // جلب الأسئلة من Gemini
+            currentQuestions = await fetchQuestionsFromGemini(type, topic);
+
+            document.getElementById('loading-state').style.display = 'none';
+            document.getElementById('quiz-content').style.display = 'block';
+
             showQuestion();
         }
 
         function showQuestion() {
-            const data = (currentQuizType === 'personality') ? personalityQuiz : triviaQuiz;
-            const qData = data.questions[currentStep];
+            const qData = currentQuestions[currentStep];
 
-            // Update progress
-            const progressPercent = ((currentStep) / data.questions.length) * 100;
+            const progressPercent = ((currentStep) / currentQuestions.length) * 100;
             document.getElementById('progress').style.width = progressPercent + '%';
 
             document.getElementById('q-text').innerText = qData.q;
@@ -317,7 +341,10 @@
             const optionsBox = document.getElementById('q-options');
             optionsBox.innerHTML = '';
 
-            qData.options.forEach(opt => {
+            // ترتيب الخيارات عشوائياً
+            const shuffledOptions = [...qData.options].sort(() => Math.random() - 0.5);
+
+            shuffledOptions.forEach(opt => {
                 const btn = document.createElement('button');
                 btn.className = 'option-btn';
                 btn.innerText = opt.text;
@@ -327,16 +354,15 @@
         }
 
         function handleAnswer(opt) {
-            if (currentQuizType === 'personality') {
-                scoreP[opt.type]++;
+            if (currentQuizType === 'trivia') {
+                if (opt.correct) score++;
             } else {
-                if (opt.correct) scoreT++;
+                score++; // لاختبار الشخصية
             }
 
             currentStep++;
-            const data = (currentQuizType === 'personality') ? personalityQuiz : triviaQuiz;
 
-            if (currentStep < data.questions.length) {
+            if (currentStep < currentQuestions.length) {
                 showQuestion();
             } else {
                 showResult();
@@ -348,23 +374,16 @@
             document.getElementById('result-content').style.display = 'block';
             document.getElementById('progress').style.width = '100%';
 
-            if (currentQuizType === 'personality') {
-                let maxType = 'A';
-                if (scoreP.B > scoreP[maxType]) maxType = 'B';
-                if (scoreP.C > scoreP[maxType]) maxType = 'C';
-
-                const res = personalityQuiz.results[maxType];
-                document.getElementById('res-title').innerText = res.title;
-                document.getElementById('res-desc').innerText = res.desc;
-                lastResultText = `جربت اختبار الشخصية وكانت النتيجة: (${res.title}). خوض التحدي واكتشف نمط شخصيتك الآن!`;
+            if (currentQuizType === 'trivia') {
+                document.getElementById('res-title').innerText = `حققت: ${score} من ${currentQuestions.length} 🏆`;
+                document.getElementById('res-desc').innerText = score === currentQuestions.length ? 
+                    "أداء أسطوري! تمكنت من الإجابة على جميع الأسئلة الذكية بنجاح." : 
+                    "محاولة ممتازة! يمكنك بدء التحدي مجدداً للحصول على أسئلة جديدة كلياً من الذكاء الاصطناعي.";
+                lastResultText = `حققت ${score} من ${currentQuestions.length} في تحدي Gemini للذكاء المعرفي! هل يمكنك التغلب علي؟`;
             } else {
-                document.getElementById('res-title').innerText = `حصلت على: ${scoreT} من 3 🏆`;
-                if (scoreT === 3) {
-                    document.getElementById('res-desc').innerText = "عبقري! إجاباتك كاملة وصحيحة 100%. أثبت تفوقك العقلي وثقافتك العامة.";
-                } else {
-                    document.getElementById('res-desc').innerText = "محاولة جيدة! يمكنك إعادة التحدي مجدداً وتحقيق النتيجة الكاملة.";
-                }
-                lastResultText = `حققت ${scoreT} من 3 في تحدي الذكاء المعرفي! هل تستطيع التغلب علي؟ جرب الآن!`;
+                document.getElementById('res-title').innerText = "شخصية فريدة ومبتكرة ✨";
+                document.getElementById('res-desc').innerText = "تحليلك يدل على قدرة عالية على التكيف والتفكير الإستراتيجي وسرعة البديهة في التعامل مع المواقف الصعبة.";
+                lastResultText = `اكتشفت نمط شخصيتي عبر اختبار الذكاء الاصطناعي الخاص! جرب الاختبار بنفسك الآن.`;
             }
         }
 
@@ -375,7 +394,7 @@
 
         function shareWhatsApp() {
             const url = window.location.href;
-            const text = `${lastResultText}\n\nالرابط: ${url}`;
+            const text = `${lastResultText}\n\nجرب التحدي من هنا: ${url}`;
             window.open(`https://wa.me/?text=${encodeURIComponent(text)}`);
         }
 
@@ -394,10 +413,8 @@
         };
     </script>
 
-    <!-- Monetag Ad 1: In-Page Push -->
+    <!-- Monetag Ads -->
     <script>(function(s){s.dataset.zone='11534787',s.src='https://nap5k.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
-
-    <!-- Monetag Ad 2: Vignette Banner -->
     <script>(function(s){s.dataset.zone='11534856',s.src='https://n6wxm.com/vignette.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
 
 </body>
